@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Home</title>
+<link rel="stylesheet" href="#" th:href="@{/css/bootstrap.css}" />
+<link rel="stylesheet" href="#" th:href="@{/css/all.css}" />
+<link rel="stylesheet" href="#" th:href="@{/css/index.css}" />
+</head>
+<body>
+
+	<div class="container">
+		<div class="headiing">
+			<h1>
+				Welcome to Our bus service
+			</h1>
+			<br /> <a href="loginForm">Login</a><br/>
+			<br /> <a href="register">Sign up</a><br/>
+			
+			<br/>
+
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-6">
+				<form action="book-seat" method="post">
+
+					<h4>Please select your seat</h4>
+					<input type="checkbox" id="cb1" hidden
+						th:classappend="${#lists.contains(seats, 'seat1')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat1')}" th:disabled="${#lists.contains(seats, 'seat1')}" value="seat1"
+						name="seatNo[]"><label class="btn btn-success" for="cb1">1</label>&nbsp;&nbsp;&nbsp;&nbsp;
+
+					<input type="checkbox" id="cb2" hidden th:classappend="${#lists.contains(seats, 'seat2')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat2')}" th:disabled="${#lists.contains(seats, 'seat2')}" value="seat2"
+						name="seatNo[]"><label class="btn btn-success" for="cb2">2</label>&nbsp;&nbsp;&nbsp;&nbsp;
+
+					<input type="checkbox" id="cb3" hidden th:classappend="${#lists.contains(seats, 'seat3')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat3')}" th:disabled="${#lists.contains(seats, 'seat3')}" value="seat3"
+						name="seatNo[]"><label class="btn btn-success" for="cb3">3</label>&nbsp;&nbsp;&nbsp;&nbsp;
+
+					<input type="checkbox" id="cb4" hidden th:classappend="${#lists.contains(seats, 'seat4')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat4')}" th:disabled="${#lists.contains(seats, 'seat4')}" value="seat4"
+						name="seatNo[]"><label class="btn btn-success" for="cb4">4</label>&nbsp;&nbsp;&nbsp;&nbsp;
+
+					<input type="checkbox" id="cb5" hidden th:classappend="${#lists.contains(seats, 'seat5')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat5')}" th:disabled="${#lists.contains(seats, 'seat5')}" value="seat5"
+						name="seatNo[]"><label class="btn btn-success" for="cb5">5</label><br>
+
+					<input type="checkbox" id="cb6" hidden th:classappend="${#lists.contains(seats, 'seat6')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat6')}" th:disabled="${#lists.contains(seats, 'seat6')}" value="seat6"
+						name="seatNo[]"><label class="btn btn-success" for="cb6">6</label>&nbsp;&nbsp;&nbsp;&nbsp;
+
+					<input type="checkbox" id="cb7" hidden th:classappend="${#lists.contains(seats, 'seat7')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat7')}" th:disabled="${#lists.contains(seats, 'seat7')}" value="seat7"
+						name="seatNo[]"><label class="btn btn-success" for="cb7">7</label>&nbsp;&nbsp;&nbsp;&nbsp;
+
+					<input type="checkbox" id="cb8" hidden th:classappend="${#lists.contains(seats, 'seat8')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat8')}" th:disabled="${#lists.contains(seats, 'seat8')}" value="seat8"
+						name="seatNo[]"><label class="btn btn-success" for="cb8">8</label>&nbsp;&nbsp;&nbsp;&nbsp;
+
+					<input type="checkbox" id="cb9" hidden th:classappend="${#lists.contains(seats, 'seat9')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat9')}" th:disabled="${#lists.contains(seats, 'seat9')}" value="seat9"
+						name="seatNo[]"><label class="btn btn-success" for="cb9">9</label>&nbsp;&nbsp;&nbsp;&nbsp;
+
+					<input type="checkbox" id="cb10" hidden th:classappend="${#lists.contains(seats, 'seat10')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat10')}" th:disabled="${#lists.contains(seats, 'seat10')}"
+						value="seat10" name="seatNo[]"><label
+						class="btn btn-success" for="cb10">10</label><br>
+						
+						
+						 <input
+						type="checkbox" id="cb11" hidden th:classappend="${#lists.contains(seats, 'seat11')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat11')}" th:disabled="${#lists.contains(seats, 'seat11')}" value="seat11"
+						name="seatNo[]"><label class="btn btn-success" for="cb11">11</label>&nbsp;&nbsp;&nbsp;&nbsp;
+
+					<input type="checkbox" id="cb12" hidden th:classappend="${#lists.contains(seats, 'seat12')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat12')}" th:disabled="${#lists.contains(seats, 'seat12')}"
+						value="seat12" name="seatNo[]"><label
+						class="btn btn-success" for="cb12">12</label>&nbsp;&nbsp;&nbsp;&nbsp;
+
+					<input type="checkbox" id="cb13" hidden th:classappend="${#lists.contains(seats, 'seat13')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat13')}" th:disabled="${#lists.contains(seats, 'seat13')}"
+						value="seat13" name="seatNo[]"><label
+						class="btn btn-success" for="cb13">13</label>&nbsp;&nbsp;&nbsp;&nbsp;
+
+					<input type="checkbox" id="cb14" hidden th:classappend="${#lists.contains(seats, 'seat14')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat14')}" th:disabled="${#lists.contains(seats, 'seat14')}"
+						value="seat14" name="seatNo[]"><label
+						class="btn btn-success" for="cb14">14</label>&nbsp;&nbsp;&nbsp;&nbsp;
+
+					<input type="checkbox" id="cb15" hidden th:classappend="${#lists.contains(seats, 'seat15')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat15')}" th:disabled="${#lists.contains(seats, 'seat15')}"
+						value="seat15" name="seatNo[]"><label
+						class="btn btn-success" for="cb15">15</label><br>
+						
+						
+						 <input
+						type="checkbox" id="cb16" hidden th:classappend="${#lists.contains(seats, 'seat16')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat16')}" th:disabled="${#lists.contains(seats, 'seat16')}" value="seat16"
+						name="seatNo[]"><label class="btn btn-success" for="cb16">16</label>&nbsp;&nbsp;&nbsp;&nbsp;
+
+					<input type="checkbox" id="cb17" hidden th:classappend="${#lists.contains(seats, 'seat17')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat17')}" th:disabled="${#lists.contains(seats, 'seat17')}"
+						value="seat17" name="seatNo[]"><label
+						class="btn btn-success" for="cb17">17</label>&nbsp;&nbsp;&nbsp;&nbsp;
+
+					<input type="checkbox" id="cb18" hidden th:classappend="${#lists.contains(seats, 'seat18')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat18')}" th:disabled="${#lists.contains(seats, 'seat18')}"
+						value="seat18" name="seatNo[]"><label
+						class="btn btn-success" for="cb18">18</label>&nbsp;&nbsp;&nbsp;&nbsp;
+
+					<input type="checkbox" id="cb19" hidden th:classappend="${#lists.contains(seats, 'seat19')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat19')}" th:disabled="${#lists.contains(seats, 'seat19')}"
+						value="seat19" name="seatNo[]"><label
+						class="btn btn-success" for="cb19">19</label>&nbsp;&nbsp;&nbsp;&nbsp;
+
+					<input type="checkbox" id="cb20" hidden th:classappend="${#lists.contains(seats, 'seat20')} ? 'box1' : 'mybtn'"
+						th:checked="${#lists.contains(seats, 'seat20')}" th:disabled="${#lists.contains(seats, 'seat20')}"
+						value="seat20" name="seatNo[]"><label
+						class="btn btn-success" for="cb20">20</label><br>
+					<button type="submit" class="btn btn-primary">Book seat</button>
+
+				</form>
+
+			</div>
+			<div class="col-4">
+				<input type="checkbox" id="cb16" hidden="hidden"><label
+					class="btn btn-success indication3" for="cb16">*</label> <span>Seat Available</span><br/><br/>
+					
+					<input type="checkbox"
+					id="cb16" hidden="hidden"><label
+					class="btn btn-danger indication1" for="cb16">*</label> <span>Already Booked</span> <br/><br/>
+					
+					<input type="checkbox"
+					id="cb16" hidden="hidden"><label
+					class="btn btn-success indication2" for="cb16">*</label> <span>You selected that one</span>
+			</div>
+		</div>
+
+
+	</div>
+
+	<br>
+</body>
+</html>

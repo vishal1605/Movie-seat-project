@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Record</title>
+<link rel="stylesheet" href="#" th:href="@{/css/bootstrap.css}" />
+<link rel="stylesheet" href="#" th:href="@{/css/all.css}" />
+<link rel="stylesheet" href="#" th:href="@{/css/index.css}" />
+</head>
+<body>
+	<h1>
+		User <span th:text="${session.user.name}"></span>
+	</h1>
+	<div class="container">
+		<div class="headiing">
+			<h1>
+				Welcome to Our bus <span th:text="${session.user.email}"></span>
+			</h1>
+			<br /> <a href="logout">Logout</a>
+
+		</div>
+	</div>
+
+	<div class="container-fluid mt-5">
+		<div class="row">
+			<div class="col-12">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Seat</th>
+							<th scope="col">Each Price</th>
+							<th scope="col">Total price</th>
+							<th scope="col">Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="history: ${hList}">
+							<th th:text="${history.hId}"></th>
+							<th th:text="${history.seat}"></th>
+							<th th:text="${history.price}"></th>
+							<th th:text="${history.total}"></th>
+							<th th:text="${history.date}"></th>
+
+						</tr>
+
+
+					</tbody>
+				</table>
+
+			</div>
+
+
+		</div>
+
+
+	</div>
+	<script th:inline="javascript">
+	let str = [[${list1}]];
+	let obj = JSON.parse(str);
+	console.log(obj.seat);
+	/* document.write(obj); */
+	
+	</script>
+</body>
+</html>
