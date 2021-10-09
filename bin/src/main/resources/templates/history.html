@@ -9,12 +9,12 @@
 </head>
 <body>
 	<h1>
-		User <span th:if="${session.user.name}" th:text="${session.user.name}"></span>
+		User <span th:text="${session.user.name}"></span>
 	</h1>
 	<div class="container">
 		<div class="headiing">
 			<h1>
-				Welcome to Our bus <span th:if="${session.user.email}" th:text="${session.user.email}"></span>
+				Welcome to Our bus <span th:text="${session.user.email}"></span>
 			</h1>
 			<br /> <a href="logout">Logout</a>
 
@@ -55,12 +55,12 @@
 
 
 	</div>
-	<!-- <script th:inline="javascript">
+	<script th:inline="javascript">
 	let str = [[${list1}]];
 	let obj = JSON.parse(str);
 	console.log(obj.seat);
-	document.write(obj);
+	/* document.write(obj); */
 	
-	</script> -->
+	</script>
 </body>
 </html>

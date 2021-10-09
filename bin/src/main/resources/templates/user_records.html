@@ -9,12 +9,12 @@
 </head>
 <body>
 	<h1>
-		User <span th:if="${session.user.name}" th:text="${session.user.name}"></span>
+		User <span th:text="${session.user.name}"></span>
 	</h1>
 	<div class="container">
 		<div class="headiing">
 			<h1>
-				Welcome to Our bus <span th:if="${session.user.email}" th:text="${session.user.email}"></span>
+				Welcome to Our bus <span th:text="${session.user.email}"></span>
 			</h1>
 			<br /> <a href="logout">Logout</a>
 
@@ -28,19 +28,19 @@
 					<thead>
 						<tr>
 							<th scope="col">#</th>
-							<th scope="col">Seat</th>
-							<th scope="col">Each Price</th>
-							<th scope="col">Total price</th>
-							<th scope="col">Date</th>
+							<th scope="col">Name</th>
+							<th scope="col">Email</th>
+							<th scope="col">Password</th>
+							<th scope="col">All seats</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="history: ${hList}">
-							<th th:text="${history.hId}"></th>
-							<th th:text="${history.seat}"></th>
-							<th th:text="${history.price}"></th>
-							<th th:text="${history.total}"></th>
-							<th th:text="${history.date}"></th>
+						<tr th:each="customer: ${records}">
+							<th th:text="${customer.bid}"></th>
+							<th th:text="${customer.name}"></th>
+							<th th:text="${customer.email}"></th>
+							<th th:text="${customer.password}"></th>
+							<th><a th:href="@{all-seats/{id}(id=${customer.bid})}">view seats</a></th>
 
 						</tr>
 

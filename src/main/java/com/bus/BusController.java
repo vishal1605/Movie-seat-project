@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -205,15 +206,35 @@ public class BusController {
 	
 //	Admin power to clear All seats
 	@GetMapping("/clear-seats")
-	public String eraseSeat() {
-
+	public String eraseSeat(HttpSession session) {
+		Customer object = (Customer) session.getAttribute("user");
+		
+		if(object != null) {
 		List<Seat> list = dao.getAllSeat();
 		for (Seat seat : list) {
 			long id = seat.getsId();
 			dao.delete(id);
+		}
 
 		}
 		return "redirect:/home";
+	}
+	
+//	Admin can see all Customers
+	@GetMapping("/all-customers-records")
+	public String allRecords(Model m) {
+		List<Customer> all = dao.getAll();
+		m.addAttribute("records", all);
+		return "user_records";
+	}
+	
+//	Admin can see all Customers and their seats
+	@GetMapping("/all-seats/{id}")
+	public String allSeats(@PathVariable("id") long id, Model m) {
+		List<OrderHistory> list = dao.getAllHistory(id);
+		m.addAttribute("seatRecords", list);
+		return "seat-records";
+		
 	}
 	
 //	Exception handling

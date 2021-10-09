@@ -16,7 +16,7 @@
 			<h1>
 				Welcome to Our bus <span th:if="${session.user.email}" th:text="${session.user.email}"></span>
 			</h1>
-			<br /> <a href="logout">Logout</a>
+			<br /> <a href="/logout">Logout</a>
 
 		</div>
 	</div>
@@ -35,7 +35,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="history: ${hList}">
+						<tr th:each="history: ${seatRecords}">
 							<th th:text="${history.hId}"></th>
 							<th th:text="${history.seat}"></th>
 							<th th:text="${history.price}"></th>
@@ -55,12 +55,6 @@
 
 
 	</div>
-	<!-- <script th:inline="javascript">
-	let str = [[${list1}]];
-	let obj = JSON.parse(str);
-	console.log(obj.seat);
-	document.write(obj);
-	
-	</script> -->
+
 </body>
 </html>

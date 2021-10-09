@@ -61,7 +61,7 @@ public class CustomerDao {
 	}
 	
 	public List<OrderHistory> getAllHistory(long id){
-		List<OrderHistory> list = repo2.getAllHistory(id);
+		List<OrderHistory> list = repo2.getAllHistory(id);		
 		return list;
 	}
 	
@@ -73,6 +73,7 @@ public class CustomerDao {
 	public void delete(long id) {
 		repo1.deleteById(id);
 	}
+	
 	
 	
 

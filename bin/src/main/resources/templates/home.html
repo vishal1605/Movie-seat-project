@@ -2,28 +2,23 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>Dashboard</title>
+<title>Home</title>
 <link rel="stylesheet" href="#" th:href="@{/css/bootstrap.css}" />
 <link rel="stylesheet" href="#" th:href="@{/css/all.css}" />
 <link rel="stylesheet" href="#" th:href="@{/css/index.css}" />
 </head>
 <body>
-	<h1>
-		User <span th:if="${session.user.name}" th:text="${session.user.name}"></span>
-	</h1>
+
 	<div class="container">
 		<div class="headiing">
 			<h1>
-				Welcome to Our bus <span th:if="${session.user.email}" th:text="${session.user.email}"></span>
+				Welcome to Our bus service
 			</h1>
-			<br /> <a href="logout">Logout</a><br/>
-			<br /> <a href="order-history">Order-History</a><br/>
-			<br /> <a th:if="${session.user.bid==1}" href="all-customers-records">All Users record</a><br/>
-			<br /> <a th:if="${session.user.bid==1}" href="clear-seats">Erase</a><br/>
+			<br /> <a href="loginForm">Login</a><br/>
+			<br /> <a href="register">Sign up</a><br/>
+			
 			<br/>
-			<div th:each="seat: ${available}">
-			<h4 ><span th:text="${seat}"></span>&nbsp;&nbsp;Available</h4>
-			</div>
+
 		</div>
 		<br>
 		<div class="row">

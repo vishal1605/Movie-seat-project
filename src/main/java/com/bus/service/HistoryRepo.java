@@ -11,7 +11,7 @@ import com.bus.beans.OrderHistory;
 @Repository
 public interface HistoryRepo extends JpaRepository<OrderHistory, Long> {
 	
-	@Query(value = "select * from o_history where customer_b_id=?", nativeQuery = true)
+	@Query(value = "select * from o_history where customer_b_id=? ORDER BY h_id DESC", nativeQuery = true)
 	public List<OrderHistory> getAllHistory(long id);
 
 }
