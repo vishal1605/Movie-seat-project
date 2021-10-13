@@ -28,8 +28,7 @@ public class BusController {
 
 	@Autowired
 	private CustomerDao dao;
-	
-	
+
 //Opening home page
 	@GetMapping("/")
 	public String home(Model m) {
@@ -48,8 +47,7 @@ public class BusController {
 		m.addAttribute("seats", seatNo1);
 		return "home";
 	}
-	
-	
+
 //Registeration User
 	@GetMapping("/register")
 	public String register() {
@@ -68,7 +66,6 @@ public class BusController {
 		return "login";
 	}
 
-	
 //	User save process
 	@PostMapping("/save")
 	public String save(@ModelAttribute("customer") Customer customer) {
@@ -82,17 +79,23 @@ public class BusController {
 	public String login(@RequestParam("email") String email, @RequestParam("password") String password,
 			HttpSession session, Model m) {
 
-		Customer customer = dao.login(email, password);
-		if (customer == null) {
-			m.addAttribute("failed", "Invalied login");
-			return "login";
+		Customer object = (Customer) session.getAttribute("user");
+		if (object != null) {
+			return "redirect:/home";
 		} else {
-			session.setAttribute("user", customer);
+
+			Customer customer = dao.login(email, password);
+
+			if (customer == null) {
+				m.addAttribute("failed", "Invalied login");
+				return "login";
+			} else {
+				session.setAttribute("user", customer);
+			}
+			return "redirect:/home";
 		}
-		return "redirect:/home";
 	}
 
-	
 //	Dashboard page
 	@GetMapping("/home")
 	public String getUser(HttpSession session, Model m) {
@@ -117,7 +120,6 @@ public class BusController {
 		return "dashboard";
 	}
 
-	
 //	Logout process
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
@@ -127,61 +129,59 @@ public class BusController {
 		return "redirect:/";
 	}
 
-	
 //	Seat booking process
 	@PostMapping("/book-seat")
 	public String bookSeat(@ModelAttribute("Seat") Seat seat, HttpSession session, Model m) {
 		Customer object = (Customer) session.getAttribute("user");
-		if(object==null) {
+		if (object == null) {
 			return "redirect:/loginForm";
-		}else {
-		List<Double> price = new ArrayList<Double>();
-		double sum = 0;
-		double p = 525.22d;
-		for (String s : seat.getSeatNo()) {
-			sum = sum + p;
-			price.add(p);
-		}
-		seat.setTotal(sum);
-		seat.setPrice(price);
+		} else {
+			List<Double> price = new ArrayList<Double>();
+			double sum = 0;
+			double p = 525.22d;
+			for (String s : seat.getSeatNo()) {
+				sum = sum + p;
+				price.add(p);
+			}
+			seat.setTotal(sum);
+			seat.setPrice(price);
 
-		OrderHistory history = new OrderHistory();
-		history.setCustomer(object);
-		history.setDate(new Date());
-		history.setPrice(price);
-		history.setSeat(seat.getSeatNo());
-		history.setTotal(sum);
-		dao.saveSeat(seat, object);
-		dao.saveHistory(history, object);
-		List<String> seatNo1 = new ArrayList<String>();
-		List<Customer> all = dao.getAll();
-		for (Customer c : all) {
-			for (Seat s : c.getSeat()) {
-				for (String s1 : s.getSeatNo()) {
-					seatNo1.add(s1);
+			OrderHistory history = new OrderHistory();
+			history.setCustomer(object);
+			history.setDate(new Date());
+			history.setPrice(price);
+			history.setSeat(seat.getSeatNo());
+			history.setTotal(sum);
+			dao.saveSeat(seat, object);
+			dao.saveHistory(history, object);
+			List<String> seatNo1 = new ArrayList<String>();
+			List<Customer> all = dao.getAll();
+			for (Customer c : all) {
+				for (Seat s : c.getSeat()) {
+					for (String s1 : s.getSeatNo()) {
+						seatNo1.add(s1);
+					}
+
 				}
-
 			}
-		}
-		List<String> in = new ArrayList<String>();
-		List<String> out = new ArrayList<String>();
-		for (String s1 : seat.getSeatNo()) {
-			if (seatNo1.contains(s1)) {
-				in.add(s1);
-			} else {
-				out.add(s1);
+			List<String> in = new ArrayList<String>();
+			List<String> out = new ArrayList<String>();
+			for (String s1 : seat.getSeatNo()) {
+				if (seatNo1.contains(s1)) {
+					in.add(s1);
+				} else {
+					out.add(s1);
+				}
 			}
-		}
-		m.addAttribute("available", in);
-		m.addAttribute("booked", out);
+			m.addAttribute("available", in);
+			m.addAttribute("booked", out);
 
-		m.addAttribute("seats", seatNo1);
-		session.setAttribute("user", object);
-		return "redirect:/home";
+			m.addAttribute("seats", seatNo1);
+			session.setAttribute("user", object);
+			return "redirect:/home";
 		}
 	}
 
-	
 //	Order history
 	@GetMapping("/order-history")
 	public String history(HttpSession session, Model m) {
@@ -203,23 +203,22 @@ public class BusController {
 		return "history";
 	}
 
-	
 //	Admin power to clear All seats
 	@GetMapping("/clear-seats")
 	public String eraseSeat(HttpSession session) {
 		Customer object = (Customer) session.getAttribute("user");
-		
-		if(object != null) {
-		List<Seat> list = dao.getAllSeat();
-		for (Seat seat : list) {
-			long id = seat.getsId();
-			dao.delete(id);
-		}
+
+		if (object != null) {
+			List<Seat> list = dao.getAllSeat();
+			for (Seat seat : list) {
+				long id = seat.getsId();
+				dao.delete(id);
+			}
 
 		}
 		return "redirect:/home";
 	}
-	
+
 //	Admin can see all Customers
 	@GetMapping("/all-customers-records")
 	public String allRecords(Model m) {
@@ -227,16 +226,16 @@ public class BusController {
 		m.addAttribute("records", all);
 		return "user_records";
 	}
-	
+
 //	Admin can see all Customers and their seats
 	@GetMapping("/all-seats/{id}")
 	public String allSeats(@PathVariable("id") long id, Model m) {
 		List<OrderHistory> list = dao.getAllHistory(id);
 		m.addAttribute("seatRecords", list);
 		return "seat-records";
-		
+
 	}
-	
+
 //	Exception handling
 	@ExceptionHandler(Exception.class)
 	public String handleError(Exception ex, Model m) {
