@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import com.bus.beans.Customer;
@@ -30,6 +31,7 @@ public class CustomerDao {
 		
 	}
 	
+	@Cacheable(cacheNames = "login", key = "'customer'+#email+#password")
 	public Customer login(String email, String password) {
 		Customer customer = repo.findByEmailAndPassword(email, password);
 		return customer;
@@ -60,6 +62,7 @@ public class CustomerDao {
 		return save;
 	}
 	
+	@Cacheable(cacheNames = "history", key = "#id")
 	public List<OrderHistory> getAllHistory(long id){
 		List<OrderHistory> list = repo2.getAllHistory(id);		
 		return list;
