@@ -135,6 +135,9 @@ public class BusController {
 		Customer object = (Customer) session.getAttribute("user");
 		if (object == null) {
 			return "redirect:/loginForm";
+		} else if (seat.getSeatNo() == null) {
+			System.out.println("Seat is null");
+			return "redirect:/home";
 		} else {
 			List<Double> price = new ArrayList<Double>();
 			double sum = 0;
