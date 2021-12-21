@@ -33,16 +33,15 @@ public class BusController {
 	@GetMapping("/")
 	public String home(Model m) {
 		List<String> seatNo1 = new ArrayList<String>();
-		List<Customer> all = dao.getAll();
+		List<Seat> all = dao.getAllSeat();
 
-		for (Customer c : all) {
-			for (Seat s : c.getSeat()) {
+			for (Seat s : all) {
 				for (String s1 : s.getSeatNo()) {
 					seatNo1.add(s1);
 				}
 
 			}
-		}
+		
 
 		m.addAttribute("seats", seatNo1);
 		return "home";
@@ -103,15 +102,14 @@ public class BusController {
 		Customer customer = (Customer) session.getAttribute("user");
 		List<String> seatNo1 = new ArrayList<String>();
 		List<Seat> seat = customer.getSeat();
-		List<Customer> all = dao.getAll();
 
-		for (Customer c : all) {
-			for (Seat s : c.getSeat()) {
-				for (String s1 : s.getSeatNo()) {
-					seatNo1.add(s1);
-				}
+		List<Seat> all = dao.getAllSeat();
 
+		for (Seat s : all) {
+			for (String s1 : s.getSeatNo()) {
+				seatNo1.add(s1);
 			}
+
 		}
 
 		m.addAttribute("seats", seatNo1);

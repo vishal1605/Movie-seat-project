@@ -32,6 +32,9 @@ public class Seat {
 	
 	@ManyToOne
 	private Customer customer;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private CurrentDateOperation operation;
 
 	public long getsId() {
 		return sId;
@@ -73,21 +76,33 @@ public class Seat {
 		this.customer = customer;
 	}
 
-	public Seat(long sId, List<String> seatNo, List<Double> price, double total, Customer customer) {
+	public CurrentDateOperation getOperation() {
+		return operation;
+	}
+
+	public void setOperation(CurrentDateOperation operation) {
+		this.operation = operation;
+	}
+
+	public Seat(List<String> seatNo, List<Double> price, double total, Customer customer,
+			CurrentDateOperation operation) {
+		super();
+		this.seatNo = seatNo;
+		this.price = price;
+		this.total = total;
+		this.customer = customer;
+		this.operation = operation;
+	}
+
+	public Seat(long sId, List<String> seatNo, List<Double> price, double total, Customer customer,
+			CurrentDateOperation operation) {
 		super();
 		this.sId = sId;
 		this.seatNo = seatNo;
 		this.price = price;
 		this.total = total;
 		this.customer = customer;
-	}
-
-	public Seat(List<String> seatNo, List<Double> price, double total, Customer customer) {
-		super();
-		this.seatNo = seatNo;
-		this.price = price;
-		this.total = total;
-		this.customer = customer;
+		this.operation = operation;
 	}
 
 	public Seat() {
@@ -98,10 +113,9 @@ public class Seat {
 	@Override
 	public String toString() {
 		return "Seat [sId=" + sId + ", seatNo=" + seatNo + ", price=" + price + ", total=" + total + ", customer="
-				+ customer + "]";
+				+ customer + ", operation=" + operation + "]";
 	}
-	
-	
-	
+
+		
 	
 }

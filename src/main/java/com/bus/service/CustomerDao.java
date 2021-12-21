@@ -1,6 +1,8 @@
 package com.bus.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
+import com.bus.beans.CurrentDateOperation;
 import com.bus.beans.Customer;
 import com.bus.beans.OrderHistory;
 import com.bus.beans.Seat;
@@ -41,6 +44,12 @@ public class CustomerDao {
 		List<Seat> list = new ArrayList<Seat>();
 		list.add(seat);
 		customer.setSeat(list);
+		CurrentDateOperation cdo= new CurrentDateOperation();
+		cdo.setOpeningDate(new Date());
+		cdo.setSeat(list);
+		
+		seat.setOperation(cdo);
+		seat.setOperation(cdo);
 		seat.setCustomer(customer);
 		Seat save = repo1.save(seat);
 		return 1;
@@ -69,7 +78,8 @@ public class CustomerDao {
 	}
 	
 	public List<Seat> getAllSeat(){
-		List<Seat> list = repo1.findAll();
+		LocalDate date = LocalDate.of(2021, 12, 19);
+		List<Seat> list = repo1.getAllByDate(date);
 		return list;
 	}
 	
