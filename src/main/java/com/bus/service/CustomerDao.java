@@ -77,8 +77,7 @@ public class CustomerDao {
 		return list;
 	}
 	
-	public List<Seat> getAllSeat(){
-		LocalDate date = LocalDate.of(2021, 12, 19);
+	public List<Seat> getAllSeat(LocalDate date){
 		List<Seat> list = repo1.getAllByDate(date);
 		return list;
 	}

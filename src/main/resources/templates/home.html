@@ -21,6 +21,15 @@
 
 		</div>
 		<br>
+		<div class="date_form">
+		<form th:action="@{/check}" method="post">
+		<input type="date" name="localdate" th:value="${date}"/>
+		<button type="submit" class="btn btn-primary">Check</button>
+		
+		</form>
+		
+		</div>
+		<br/>
 		<div class="row">
 			<div class="col-6">
 				<form action="book-seat" method="post">

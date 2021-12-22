@@ -1,5 +1,6 @@
 package com.bus;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,17 +33,19 @@ public class BusController {
 //Opening home page
 	@GetMapping("/")
 	public String home(Model m) {
+		LocalDate now = LocalDate.now();
 		List<String> seatNo1 = new ArrayList<String>();
-		List<Seat> all = dao.getAllSeat();
-
-			for (Seat s : all) {
-				for (String s1 : s.getSeatNo()) {
-					seatNo1.add(s1);
-				}
-
-			}
+		List<Seat> all = dao.getAllSeat(now);
 		
 
+		for (Seat s : all) {
+			for (String s1 : s.getSeatNo()) {
+				seatNo1.add(s1);
+			}
+
+		}
+
+		m.addAttribute("date", now);
 		m.addAttribute("seats", seatNo1);
 		return "home";
 	}
@@ -98,12 +101,13 @@ public class BusController {
 //	Dashboard page
 	@GetMapping("/home")
 	public String getUser(HttpSession session, Model m) {
+		LocalDate now = LocalDate.now();
 
 		Customer customer = (Customer) session.getAttribute("user");
 		List<String> seatNo1 = new ArrayList<String>();
 		List<Seat> seat = customer.getSeat();
 
-		List<Seat> all = dao.getAllSeat();
+		List<Seat> all = dao.getAllSeat(now);
 
 		for (Seat s : all) {
 			for (String s1 : s.getSeatNo()) {
@@ -112,6 +116,7 @@ public class BusController {
 
 		}
 
+		m.addAttribute("date", now);
 		m.addAttribute("seats", seatNo1);
 		m.addAttribute("seat", seat);
 		session.setAttribute("user", customer);
@@ -207,10 +212,11 @@ public class BusController {
 //	Admin power to clear All seats
 	@GetMapping("/clear-seats")
 	public String eraseSeat(HttpSession session) {
+		LocalDate now = LocalDate.now();
 		Customer object = (Customer) session.getAttribute("user");
 
 		if (object != null) {
-			List<Seat> list = dao.getAllSeat();
+			List<Seat> list = dao.getAllSeat(now);
 			for (Seat seat : list) {
 				long id = seat.getsId();
 				dao.delete(id);
@@ -236,6 +242,49 @@ public class BusController {
 		return "seat-records";
 
 	}
+	
+	@PostMapping("/check")
+	public String checkDate(@RequestParam("localdate") String date, Model m, HttpSession session) {
+		Customer object = (Customer) session.getAttribute("user");
+		if(object == null) {
+			LocalDate now = LocalDate.parse(date);
+			List<String> seatNo1 = new ArrayList<String>();
+			List<Seat> all = dao.getAllSeat(now);
+			
+
+			for (Seat s : all) {
+				for (String s1 : s.getSeatNo()) {
+					seatNo1.add(s1);
+				}
+
+			}
+
+			m.addAttribute("date", now);
+			m.addAttribute("seats", seatNo1);
+			
+			return "home";
+		}else {
+			LocalDate now = LocalDate.parse(date);
+			List<String> seatNo1 = new ArrayList<String>();
+			List<Seat> all = dao.getAllSeat(now);
+			
+
+			for (Seat s : all) {
+				for (String s1 : s.getSeatNo()) {
+					seatNo1.add(s1);
+				}
+
+			}
+
+			m.addAttribute("date", now);
+			m.addAttribute("seats", seatNo1);
+			
+			return "dashboard";
+		}
+		
+		
+		
+	}
 
 //	Exception handling
 	@ExceptionHandler(Exception.class)
@@ -243,5 +292,9 @@ public class BusController {
 
 		return "redirect:/loginForm";
 	}
+	
+//	LocalDate currentDate = LocalDate.now();
+//	boolean after = now.isAfter(currentDate);
+//	System.out.println(after);
 
 }
