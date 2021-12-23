@@ -40,12 +40,12 @@ public class CustomerDao {
 		return customer;
 	}
 	
-	public int saveSeat(Seat seat, Customer customer){
+	public int saveSeat(Seat seat, Customer customer, Date date){
 		List<Seat> list = new ArrayList<Seat>();
 		list.add(seat);
 		customer.setSeat(list);
 		CurrentDateOperation cdo= new CurrentDateOperation();
-		cdo.setOpeningDate(new Date());
+		cdo.setOpeningDate(date);
 		cdo.setSeat(list);
 		
 		seat.setOperation(cdo);

@@ -1,6 +1,7 @@
 package com.bus;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,7 +37,6 @@ public class BusController {
 		LocalDate now = LocalDate.now();
 		List<String> seatNo1 = new ArrayList<String>();
 		List<Seat> all = dao.getAllSeat(now);
-		
 
 		for (Seat s : all) {
 			for (String s1 : s.getSeatNo()) {
@@ -101,6 +101,8 @@ public class BusController {
 //	Dashboard page
 	@GetMapping("/home")
 	public String getUser(HttpSession session, Model m) {
+		session.getAttribute("bookingdate");
+		session.removeAttribute("bookingdate");
 		LocalDate now = LocalDate.now();
 
 		Customer customer = (Customer) session.getAttribute("user");
@@ -135,57 +137,123 @@ public class BusController {
 //	Seat booking process
 	@PostMapping("/book-seat")
 	public String bookSeat(@ModelAttribute("Seat") Seat seat, HttpSession session, Model m) {
+		LocalDate currentDate = LocalDate.now();
+		LocalDate date = (LocalDate) session.getAttribute("bookingdate");
 		Customer object = (Customer) session.getAttribute("user");
 		if (object == null) {
 			return "redirect:/loginForm";
 		} else if (seat.getSeatNo() == null) {
 			System.out.println("Seat is null");
 			return "redirect:/home";
-		} else {
-			List<Double> price = new ArrayList<Double>();
-			double sum = 0;
-			double p = 525.22d;
-			for (String s : seat.getSeatNo()) {
-				sum = sum + p;
-				price.add(p);
-			}
-			seat.setTotal(sum);
-			seat.setPrice(price);
+		} else if (date == null) {
+			date = currentDate;
+			if (date.isAfter(currentDate) || date == currentDate) {
+				ZoneId defaultZoneId = ZoneId.systemDefault();
+				Date date2 = Date.from(date.atStartOfDay(defaultZoneId).toInstant());
+				List<Double> price = new ArrayList<Double>();
+				double sum = 0;
+				double p = 525.22d;
+				for (String s : seat.getSeatNo()) {
+					sum = sum + p;
+					price.add(p);
+				}
+				seat.setTotal(sum);
+				seat.setPrice(price);
 
-			OrderHistory history = new OrderHistory();
-			history.setCustomer(object);
-			history.setDate(new Date());
-			history.setPrice(price);
-			history.setSeat(seat.getSeatNo());
-			history.setTotal(sum);
-			dao.saveSeat(seat, object);
-			dao.saveHistory(history, object);
-			List<String> seatNo1 = new ArrayList<String>();
-			List<Customer> all = dao.getAll();
-			for (Customer c : all) {
-				for (Seat s : c.getSeat()) {
-					for (String s1 : s.getSeatNo()) {
-						seatNo1.add(s1);
+				OrderHistory history = new OrderHistory();
+				history.setCustomer(object);
+				history.setDate(date2);
+				history.setPrice(price);
+				history.setSeat(seat.getSeatNo());
+				history.setTotal(sum);
+				dao.saveSeat(seat, object, date2);
+				dao.saveHistory(history, object);
+				List<String> seatNo1 = new ArrayList<String>();
+				List<Customer> all = dao.getAll();
+				for (Customer c : all) {
+					for (Seat s : c.getSeat()) {
+						for (String s1 : s.getSeatNo()) {
+							seatNo1.add(s1);
+						}
+
 					}
-
 				}
-			}
-			List<String> in = new ArrayList<String>();
-			List<String> out = new ArrayList<String>();
-			for (String s1 : seat.getSeatNo()) {
-				if (seatNo1.contains(s1)) {
-					in.add(s1);
-				} else {
-					out.add(s1);
+				List<String> in = new ArrayList<String>();
+				List<String> out = new ArrayList<String>();
+				for (String s1 : seat.getSeatNo()) {
+					if (seatNo1.contains(s1)) {
+						in.add(s1);
+					} else {
+						out.add(s1);
+					}
 				}
-			}
-			m.addAttribute("available", in);
-			m.addAttribute("booked", out);
+				m.addAttribute("available", in);
+				m.addAttribute("booked", out);
 
-			m.addAttribute("seats", seatNo1);
-			session.setAttribute("user", object);
-			return "redirect:/home";
+				m.addAttribute("seats", seatNo1);
+				session.setAttribute("user", object);
+				return "redirect:/home";
+
+			} else {
+				System.out.println("ye date current date se pahle ki date hai");
+				return "redirect:/home";
+
+			}
+		} else {
+			if (date.isAfter(currentDate) || date == currentDate) {
+				ZoneId defaultZoneId = ZoneId.systemDefault();
+				Date date2 = Date.from(date.atStartOfDay(defaultZoneId).toInstant());
+				List<Double> price = new ArrayList<Double>();
+				double sum = 0;
+				double p = 525.22d;
+				for (String s : seat.getSeatNo()) {
+					sum = sum + p;
+					price.add(p);
+				}
+				seat.setTotal(sum);
+				seat.setPrice(price);
+
+				OrderHistory history = new OrderHistory();
+				history.setCustomer(object);
+				history.setDate(date2);
+				history.setPrice(price);
+				history.setSeat(seat.getSeatNo());
+				history.setTotal(sum);
+				dao.saveSeat(seat, object, date2);
+				dao.saveHistory(history, object);
+				List<String> seatNo1 = new ArrayList<String>();
+				List<Customer> all = dao.getAll();
+				for (Customer c : all) {
+					for (Seat s : c.getSeat()) {
+						for (String s1 : s.getSeatNo()) {
+							seatNo1.add(s1);
+						}
+
+					}
+				}
+				List<String> in = new ArrayList<String>();
+				List<String> out = new ArrayList<String>();
+				for (String s1 : seat.getSeatNo()) {
+					if (seatNo1.contains(s1)) {
+						in.add(s1);
+					} else {
+						out.add(s1);
+					}
+				}
+				m.addAttribute("available", in);
+				m.addAttribute("booked", out);
+
+				m.addAttribute("seats", seatNo1);
+				session.setAttribute("user", object);
+				return "redirect:/home";
+
+			} else {
+				System.out.println("ye date current date se pahle ki date hai");
+				return "redirect:/home";
+
+			}
 		}
+
 	}
 
 //	Order history
@@ -206,6 +274,8 @@ public class BusController {
 //			e.printStackTrace();
 //		}
 
+		LocalDate date = (LocalDate) session.getAttribute("bookingdate");
+		System.out.println(date);
 		return "history";
 	}
 
@@ -242,15 +312,14 @@ public class BusController {
 		return "seat-records";
 
 	}
-	
+
 	@PostMapping("/check")
 	public String checkDate(@RequestParam("localdate") String date, Model m, HttpSession session) {
 		Customer object = (Customer) session.getAttribute("user");
-		if(object == null) {
+		if (object == null) {
 			LocalDate now = LocalDate.parse(date);
 			List<String> seatNo1 = new ArrayList<String>();
 			List<Seat> all = dao.getAllSeat(now);
-			
 
 			for (Seat s : all) {
 				for (String s1 : s.getSeatNo()) {
@@ -259,15 +328,15 @@ public class BusController {
 
 			}
 
+			session.setAttribute("bookingdate", now);
 			m.addAttribute("date", now);
 			m.addAttribute("seats", seatNo1);
-			
+
 			return "home";
-		}else {
+		} else {
 			LocalDate now = LocalDate.parse(date);
 			List<String> seatNo1 = new ArrayList<String>();
 			List<Seat> all = dao.getAllSeat(now);
-			
 
 			for (Seat s : all) {
 				for (String s1 : s.getSeatNo()) {
@@ -276,14 +345,13 @@ public class BusController {
 
 			}
 
+			session.setAttribute("bookingdate", now);
 			m.addAttribute("date", now);
 			m.addAttribute("seats", seatNo1);
-			
+
 			return "dashboard";
 		}
-		
-		
-		
+
 	}
 
 //	Exception handling
@@ -292,9 +360,5 @@ public class BusController {
 
 		return "redirect:/loginForm";
 	}
-	
-//	LocalDate currentDate = LocalDate.now();
-//	boolean after = now.isAfter(currentDate);
-//	System.out.println(after);
 
 }
