@@ -147,7 +147,7 @@ public class BusController {
 			return "redirect:/home";
 		} else if (date == null) {
 			date = currentDate;
-			if (date.isAfter(currentDate) || date == currentDate) {
+			if ((date.isAfter(currentDate)) || (date.equals(currentDate))) {
 				ZoneId defaultZoneId = ZoneId.systemDefault();
 				Date date2 = Date.from(date.atStartOfDay(defaultZoneId).toInstant());
 				List<Double> price = new ArrayList<Double>();
@@ -200,7 +200,7 @@ public class BusController {
 
 			}
 		} else {
-			if (date.isAfter(currentDate) || date == currentDate) {
+			if ((date.isAfter(currentDate)) || (date.equals(currentDate))) {
 				ZoneId defaultZoneId = ZoneId.systemDefault();
 				Date date2 = Date.from(date.atStartOfDay(defaultZoneId).toInstant());
 				List<Double> price = new ArrayList<Double>();

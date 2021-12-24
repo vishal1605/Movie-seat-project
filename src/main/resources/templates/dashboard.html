@@ -16,6 +16,7 @@
 			<h1>
 				Welcome to Our bus <span th:if="${session.user.email}" th:text="${session.user.email}"></span>
 			</h1>
+			<br /> <a th:href="@{/home}">Home</a><br/>
 			<br /> <a href="logout">Logout</a><br/>
 			<br /> <a href="order-history">Order-History</a><br/>
 			<br /> <a th:if="${session.user.bid==1}" href="all-customers-records">All Users record</a><br/>
