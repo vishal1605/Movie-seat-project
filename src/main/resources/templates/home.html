@@ -22,9 +22,8 @@
 		</div>
 		<br>
 		<div class="date_form">
-		<form th:action="@{/check}" method="post">
-		<input type="date" name="localdate" th:value="${date}"/>
-		<button type="submit" class="btn btn-primary">Check</button>
+		<form th:action="@{/check}" method="post" id="form">
+		<input type="date" name="localdate" th:value="${date}" id="dateselect" />
 		
 		</form>
 		
@@ -151,5 +150,13 @@
 	</div>
 
 	<br>
+	
+	
+	
+	 <script>
+        document.getElementById("dateselect").onchange = function() {
+    document.getElementById("form").submit();
+}
+    </script>
 </body>
 </html>

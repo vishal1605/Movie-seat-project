@@ -315,6 +315,7 @@ public class BusController {
 
 	@PostMapping("/check")
 	public String checkDate(@RequestParam("localdate") String date, Model m, HttpSession session) {
+		System.out.println(date);
 		Customer object = (Customer) session.getAttribute("user");
 		if (object == null) {
 			LocalDate now = LocalDate.parse(date);
