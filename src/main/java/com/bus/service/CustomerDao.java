@@ -40,12 +40,13 @@ public class CustomerDao {
 		return customer;
 	}
 	
-	public int saveSeat(Seat seat, Customer customer, Date date){
+	public int saveSeat(Seat seat, Customer customer, Date date, String time){
 		List<Seat> list = new ArrayList<Seat>();
 		list.add(seat);
 		customer.setSeat(list);
 		CurrentDateOperation cdo= new CurrentDateOperation();
-		cdo.setOpeningDate(date);
+		cdo.setShowDate(date);
+		cdo.setShowTime(time);
 		cdo.setSeat(list);
 		
 		seat.setOperation(cdo);
@@ -77,8 +78,8 @@ public class CustomerDao {
 		return list;
 	}
 	
-	public List<Seat> getAllSeat(LocalDate date){
-		List<Seat> list = repo1.getAllByDate(date);
+	public List<Seat> getAllSeat(LocalDate date, String time){
+		List<Seat> list = repo1.getAllByDate(date, time);
 		return list;
 	}
 	

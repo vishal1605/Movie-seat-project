@@ -3,6 +3,7 @@ package com.bus.beans;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,76 +34,120 @@ public class OrderHistory {
 	private double total;
 	
 	@Temporal(value=TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date date;
+	@Column(name = "book_on_date")
+	private Date bookOnDate;
+	
+	@Temporal(value=TemporalType.DATE)
+	@Column(name = "show_on_date")
+	private Date showOnDate;
+	
+	@Column(name = "show_time")
+	private String showTime;
 	
 	@OneToOne
 	private Customer customer;
+
 	public long gethId() {
 		return hId;
 	}
+
 	public void sethId(long hId) {
 		this.hId = hId;
 	}
+
 	public List<String> getSeat() {
 		return seat;
 	}
+
 	public void setSeat(List<String> seat) {
 		this.seat = seat;
 	}
+
 	public List<Double> getPrice() {
 		return price;
 	}
+
 	public void setPrice(List<Double> price) {
 		this.price = price;
 	}
+
 	public double getTotal() {
 		return total;
 	}
+
 	public void setTotal(double total) {
 		this.total = total;
 	}
-	public Date getDate() {
-		return date;
+
+	public Date getBookOnDate() {
+		return bookOnDate;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+
+	public void setBookOnDate(Date bookOnDate) {
+		this.bookOnDate = bookOnDate;
 	}
+
+	public Date getShowOnDate() {
+		return showOnDate;
+	}
+
+	public void setShowOnDate(Date showOnDate) {
+		this.showOnDate = showOnDate;
+	}
+
+	public String getShowTime() {
+		return showTime;
+	}
+
+	public void setShowTime(String showTime) {
+		this.showTime = showTime;
+	}
+
 	public Customer getCustomer() {
 		return customer;
 	}
+
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-	public OrderHistory(long hId, List<String> seat, List<Double> price, double total, Date date, Customer customer) {
+
+	public OrderHistory(List<String> seat, List<Double> price, double total, Date bookOnDate, Date showOnDate,
+			String showTime, Customer customer) {
+		super();
+		this.seat = seat;
+		this.price = price;
+		this.total = total;
+		this.bookOnDate = bookOnDate;
+		this.showOnDate = showOnDate;
+		this.showTime = showTime;
+		this.customer = customer;
+	}
+
+	public OrderHistory(long hId, List<String> seat, List<Double> price, double total, Date bookOnDate, Date showOnDate,
+			String showTime, Customer customer) {
 		super();
 		this.hId = hId;
 		this.seat = seat;
 		this.price = price;
 		this.total = total;
-		this.date = date;
+		this.bookOnDate = bookOnDate;
+		this.showOnDate = showOnDate;
+		this.showTime = showTime;
 		this.customer = customer;
 	}
-	public OrderHistory(List<String> seat, List<Double> price, double total, Date date, Customer customer) {
-		super();
-		this.seat = seat;
-		this.price = price;
-		this.total = total;
-		this.date = date;
-		this.customer = customer;
-	}
+
 	public OrderHistory() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 	@Override
 	public String toString() {
-		return "OrderHistory [hId=" + hId + ", seat=" + seat + ", price=" + price + ", total=" + total + ", date="
-				+ date + ", customer=" + customer + "]";
+		return "OrderHistory [hId=" + hId + ", seat=" + seat + ", price=" + price + ", total=" + total + ", bookOnDate="
+				+ bookOnDate + ", showOnDate=" + showOnDate + ", showTime=" + showTime + ", customer=" + customer + "]";
 	}
 	
 	
-	
-	
+		
 
 }

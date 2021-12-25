@@ -29,6 +29,14 @@
 		<br>
 		<div class="date_form">
 		<form th:action="@{/check}" method="post" id="form">
+		<select name="localtime" id = "timeselect">
+		<option th:value="${time}" th:text="${'>>'+time}"></option>
+		<option value="09:00 am">09:00 am</option>
+		<option value="12:00 am">12:00 am</option>
+		<option value="03:00 pm">03:00 pm</option>
+		<option value="06:00 pm">06:00 pm</option>
+		<option value="09:00 pm">09:00 pm</option>
+		</select>
 		<input type="date" name="localdate" th:value="${date}" id="dateselect"/>
 		<!-- <button type="submit" class="btn btn-primary">Check</button> -->
 		
@@ -162,6 +170,10 @@
 		document.getElementById("dateselect").onchange = function() {
 			document.getElementById("form").submit();
 		}
+		
+		 document.getElementById("timeselect").onchange = function() {
+	            document.getElementById("form").submit();
+	        }
 	</script>
 </body>
 </html>

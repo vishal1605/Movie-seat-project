@@ -32,7 +32,9 @@
 							<th scope="col">Seat</th>
 							<th scope="col">Each Price</th>
 							<th scope="col">Total price</th>
-							<th scope="col">Date</th>
+							<th scope="col">Booking Date</th>
+							<th scope="col">Show on Date</th>
+							<th scope="col">Show on Time</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -41,7 +43,11 @@
 							<th th:text="${history.seat}"></th>
 							<th th:text="${history.price}"></th>
 							<th th:text="${history.total}"></th>
-							<th th:text="${history.date}"></th>
+							<th th:text="${#dates.format(history.bookOnDate, 'dd-MM-yyyy')}"></th>
+							<th th:text="${#dates.format(history.showOnDate, 'dd-MM-yyyy')}" 
+							th:classappend="${(history.showOnDate eq #dates.createToday()) or (history.showOnDate.after(#dates.createNow())) ? 'active' : 'deactive'}"></th>
+							<th th:text="${history.showTime}"
+							th:classappend="${(history.showOnDate eq #dates.createToday()) or (history.showOnDate.after(#dates.createNow())) ? 'active' : 'deactive'}"></th>
 
 						</tr>
 

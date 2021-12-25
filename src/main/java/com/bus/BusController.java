@@ -35,8 +35,9 @@ public class BusController {
 	@GetMapping("/")
 	public String home(Model m) {
 		LocalDate now = LocalDate.now();
+		String time = "09:00 am";
 		List<String> seatNo1 = new ArrayList<String>();
-		List<Seat> all = dao.getAllSeat(now);
+		List<Seat> all = dao.getAllSeat(now, time);
 
 		for (Seat s : all) {
 			for (String s1 : s.getSeatNo()) {
@@ -46,6 +47,7 @@ public class BusController {
 		}
 
 		m.addAttribute("date", now);
+		m.addAttribute("time", time);
 		m.addAttribute("seats", seatNo1);
 		return "home";
 	}
@@ -103,13 +105,16 @@ public class BusController {
 	public String getUser(HttpSession session, Model m) {
 		session.getAttribute("bookingdate");
 		session.removeAttribute("bookingdate");
+		session.getAttribute("bookingtime");
+		session.removeAttribute("bookingtime");
 		LocalDate now = LocalDate.now();
+		String time = "09:00 am";
 
 		Customer customer = (Customer) session.getAttribute("user");
 		List<String> seatNo1 = new ArrayList<String>();
 		List<Seat> seat = customer.getSeat();
 
-		List<Seat> all = dao.getAllSeat(now);
+		List<Seat> all = dao.getAllSeat(now, time);
 
 		for (Seat s : all) {
 			for (String s1 : s.getSeatNo()) {
@@ -119,6 +124,7 @@ public class BusController {
 		}
 
 		m.addAttribute("date", now);
+		m.addAttribute("time", time);
 		m.addAttribute("seats", seatNo1);
 		m.addAttribute("seat", seat);
 		session.setAttribute("user", customer);
@@ -138,7 +144,10 @@ public class BusController {
 	@PostMapping("/book-seat")
 	public String bookSeat(@ModelAttribute("Seat") Seat seat, HttpSession session, Model m) {
 		LocalDate currentDate = LocalDate.now();
+		ZoneId defaultZoneId = ZoneId.systemDefault();
+		Date todayDate = Date.from(currentDate.atStartOfDay(defaultZoneId).toInstant());
 		LocalDate date = (LocalDate) session.getAttribute("bookingdate");
+		String time = (String) session.getAttribute("bookingtime");
 		Customer object = (Customer) session.getAttribute("user");
 		if (object == null) {
 			return "redirect:/loginForm";
@@ -147,8 +156,9 @@ public class BusController {
 			return "redirect:/home";
 		} else if (date == null) {
 			date = currentDate;
+			time = "09:00 am";
 			if ((date.isAfter(currentDate)) || (date.equals(currentDate))) {
-				ZoneId defaultZoneId = ZoneId.systemDefault();
+				
 				Date date2 = Date.from(date.atStartOfDay(defaultZoneId).toInstant());
 				List<Double> price = new ArrayList<Double>();
 				double sum = 0;
@@ -162,11 +172,13 @@ public class BusController {
 
 				OrderHistory history = new OrderHistory();
 				history.setCustomer(object);
-				history.setDate(date2);
+				history.setBookOnDate(date2);
+				history.setShowOnDate(date2);
+				history.setShowTime(time);
 				history.setPrice(price);
 				history.setSeat(seat.getSeatNo());
 				history.setTotal(sum);
-				dao.saveSeat(seat, object, date2);
+				dao.saveSeat(seat, object, date2, time);
 				dao.saveHistory(history, object);
 				List<String> seatNo1 = new ArrayList<String>();
 				List<Customer> all = dao.getAll();
@@ -201,7 +213,6 @@ public class BusController {
 			}
 		} else {
 			if ((date.isAfter(currentDate)) || (date.equals(currentDate))) {
-				ZoneId defaultZoneId = ZoneId.systemDefault();
 				Date date2 = Date.from(date.atStartOfDay(defaultZoneId).toInstant());
 				List<Double> price = new ArrayList<Double>();
 				double sum = 0;
@@ -215,11 +226,13 @@ public class BusController {
 
 				OrderHistory history = new OrderHistory();
 				history.setCustomer(object);
-				history.setDate(date2);
+				history.setBookOnDate(todayDate);
+				history.setShowOnDate(date2);
+				history.setShowTime(time);
 				history.setPrice(price);
 				history.setSeat(seat.getSeatNo());
 				history.setTotal(sum);
-				dao.saveSeat(seat, object, date2);
+				dao.saveSeat(seat, object, date2, time);
 				dao.saveHistory(history, object);
 				List<String> seatNo1 = new ArrayList<String>();
 				List<Customer> all = dao.getAll();
@@ -259,11 +272,12 @@ public class BusController {
 //	Order history
 	@GetMapping("/order-history")
 	public String history(HttpSession session, Model m) {
+		Date todayDate= new Date();
 		Customer object = (Customer) session.getAttribute("user");
 		session.setAttribute("user", object);
 		List<OrderHistory> list = dao.getAllHistory(object.getBid());
 		m.addAttribute("hList", list);
-
+		m.addAttribute("todaydate", todayDate);
 //		ObjectMapper obj = new ObjectMapper();
 //		
 //		try {
@@ -283,10 +297,11 @@ public class BusController {
 	@GetMapping("/clear-seats")
 	public String eraseSeat(HttpSession session) {
 		LocalDate now = LocalDate.now();
+		String time = "09:00 am";
 		Customer object = (Customer) session.getAttribute("user");
 
 		if (object != null) {
-			List<Seat> list = dao.getAllSeat(now);
+			List<Seat> list = dao.getAllSeat(now, time);
 			for (Seat seat : list) {
 				long id = seat.getsId();
 				dao.delete(id);
@@ -314,13 +329,12 @@ public class BusController {
 	}
 
 	@PostMapping("/check")
-	public String checkDate(@RequestParam("localdate") String date, Model m, HttpSession session) {
-		System.out.println(date);
+	public String checkDate(@RequestParam("localdate") String date, @RequestParam("localtime") String time, Model m, HttpSession session) {
 		Customer object = (Customer) session.getAttribute("user");
 		if (object == null) {
 			LocalDate now = LocalDate.parse(date);
 			List<String> seatNo1 = new ArrayList<String>();
-			List<Seat> all = dao.getAllSeat(now);
+			List<Seat> all = dao.getAllSeat(now, time);
 
 			for (Seat s : all) {
 				for (String s1 : s.getSeatNo()) {
@@ -330,14 +344,16 @@ public class BusController {
 			}
 
 			session.setAttribute("bookingdate", now);
+			session.setAttribute("bookingtime", time);
 			m.addAttribute("date", now);
+			m.addAttribute("time", time);
 			m.addAttribute("seats", seatNo1);
 
 			return "home";
 		} else {
 			LocalDate now = LocalDate.parse(date);
 			List<String> seatNo1 = new ArrayList<String>();
-			List<Seat> all = dao.getAllSeat(now);
+			List<Seat> all = dao.getAllSeat(now, time);
 
 			for (Seat s : all) {
 				for (String s1 : s.getSeatNo()) {
@@ -347,7 +363,9 @@ public class BusController {
 			}
 
 			session.setAttribute("bookingdate", now);
+			session.setAttribute("bookingtime", time);
 			m.addAttribute("date", now);
+			m.addAttribute("time", time);
 			m.addAttribute("seats", seatNo1);
 
 			return "dashboard";

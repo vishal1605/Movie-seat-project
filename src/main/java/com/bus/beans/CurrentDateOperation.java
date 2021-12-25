@@ -26,8 +26,11 @@ public class CurrentDateOperation {
 	private long DateId;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "opening_date")
-	private Date OpeningDate;
+	@Column(name = "show_date")
+	private Date showDate;
+	
+	@Column(name = "show_time")
+	private String showTime;
 	
 	@OneToMany(mappedBy = "operation", fetch = FetchType.EAGER)
 	private List<Seat> seat;
@@ -40,12 +43,20 @@ public class CurrentDateOperation {
 		DateId = dateId;
 	}
 
-	public Date getOpeningDate() {
-		return OpeningDate;
+	public Date getShowDate() {
+		return showDate;
 	}
 
-	public void setOpeningDate(Date openingDate) {
-		OpeningDate = openingDate;
+	public void setShowDate(Date showDate) {
+		this.showDate = showDate;
+	}
+
+	public String getShowTime() {
+		return showTime;
+	}
+
+	public void setShowTime(String showTime) {
+		this.showTime = showTime;
 	}
 
 	public List<Seat> getSeat() {
@@ -56,16 +67,18 @@ public class CurrentDateOperation {
 		this.seat = seat;
 	}
 
-	public CurrentDateOperation(long dateId, Date openingDate, List<Seat> seat) {
+	public CurrentDateOperation(Date showDate, String showTime, List<Seat> seat) {
 		super();
-		DateId = dateId;
-		OpeningDate = openingDate;
+		this.showDate = showDate;
+		this.showTime = showTime;
 		this.seat = seat;
 	}
 
-	public CurrentDateOperation(Date openingDate, List<Seat> seat) {
+	public CurrentDateOperation(long dateId, Date showDate, String showTime, List<Seat> seat) {
 		super();
-		OpeningDate = openingDate;
+		DateId = dateId;
+		this.showDate = showDate;
+		this.showTime = showTime;
 		this.seat = seat;
 	}
 
@@ -76,9 +89,10 @@ public class CurrentDateOperation {
 
 	@Override
 	public String toString() {
-		return "CurrentDateOperation [DateId=" + DateId + ", OpeningDate=" + OpeningDate + ", seat=" + seat + "]";
+		return "CurrentDateOperation [DateId=" + DateId + ", showDate=" + showDate + ", showTime=" + showTime
+				+ ", seat=" + seat + "]";
 	}
-	
+
 	
 
 }

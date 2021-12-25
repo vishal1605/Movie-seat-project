@@ -20,7 +20,7 @@ public interface SeatRepo extends JpaRepository<Seat, Long> {
 			+ " on seat.s_id = seat_seat_no.seat_s_id"
 			+ " inner join current_date_operation"
 			+ " on seat.operation_date_id = current_date_operation.date_id"
-			+ " where opening_date = ?", nativeQuery = true)
-	public List<Seat> getAllByDate(LocalDate date);
+			+ " where show_date = ? and show_time = ?", nativeQuery = true)
+	public List<Seat> getAllByDate(LocalDate date, String time);
 
 }
