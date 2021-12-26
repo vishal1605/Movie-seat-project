@@ -30,10 +30,17 @@ public class BusController {
 
 	@Autowired
 	private CustomerDao dao;
+	
+	//Opening home page
+		@GetMapping("/")
+		public String home(Model m) {
+			
+			return "index";
+		}
 
-//Opening home page
-	@GetMapping("/")
-	public String home(Model m) {
+//second page
+	@GetMapping("/booking")
+	public String bookingCheck(Model m) {
 		LocalDate now = LocalDate.now();
 		String time = "09:00 am";
 		List<String> seatNo1 = new ArrayList<String>();
@@ -58,11 +65,6 @@ public class BusController {
 		return "register";
 	}
 
-//	Dummy url not used
-	@GetMapping("/seats")
-	public String seat() {
-		return "index";
-	}
 
 //	Login form
 	@GetMapping("/loginForm")
@@ -170,14 +172,7 @@ public class BusController {
 				seat.setTotal(sum);
 				seat.setPrice(price);
 
-				OrderHistory history = new OrderHistory();
-				history.setCustomer(object);
-				history.setBookOnDate(date2);
-				history.setShowOnDate(date2);
-				history.setShowTime(time);
-				history.setPrice(price);
-				history.setSeat(seat.getSeatNo());
-				history.setTotal(sum);
+				OrderHistory history = new OrderHistory(seat.getSeatNo(), price, sum, date2, date2, time, object);
 				dao.saveSeat(seat, object, date2, time);
 				dao.saveHistory(history, object);
 				List<String> seatNo1 = new ArrayList<String>();
@@ -224,14 +219,7 @@ public class BusController {
 				seat.setTotal(sum);
 				seat.setPrice(price);
 
-				OrderHistory history = new OrderHistory();
-				history.setCustomer(object);
-				history.setBookOnDate(todayDate);
-				history.setShowOnDate(date2);
-				history.setShowTime(time);
-				history.setPrice(price);
-				history.setSeat(seat.getSeatNo());
-				history.setTotal(sum);
+				OrderHistory history = new OrderHistory(seat.getSeatNo(), price, sum, date2, date2, time, object);
 				dao.saveSeat(seat, object, date2, time);
 				dao.saveHistory(history, object);
 				List<String> seatNo1 = new ArrayList<String>();
