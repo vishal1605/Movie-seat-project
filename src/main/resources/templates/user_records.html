@@ -2,30 +2,39 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>Record</title>
+<title>Home</title>
 <link rel="stylesheet" href="#" th:href="@{/css/bootstrap.css}" />
 <link rel="stylesheet" href="#" th:href="@{/css/all.css}" />
 <link rel="stylesheet" href="#" th:href="@{/css/index.css}" />
 </head>
 <body>
-	<h1>
-		User <span th:if="${session.user.name}" th:text="${session.user.name}"></span>
-	</h1>
-	<div class="container">
-		<div class="headiing">
-			<h1>
-				Welcome to Our bus <span th:if="${session.user.email}" th:text="${session.user.email}"></span>
-			</h1>
-			<br /> <a th:href="@{/home}">Home</a><br/>
-			<br /> <a href="/logout">Logout</a>
 
-		</div>
-	</div>
+	<div class="container base">
+		<div class="row base-row">
+			<div class="col-3 menu">
+				<ul class="list">
+					<li><a th:href="@{/booking-seat}"><i class="fas fa-home"></i>&nbsp;&nbsp;Home</a></li>
+					<li><a href="#"><i class="fas fa-cogs"></i>&nbsp;&nbsp;Setting</a></li>
+					<li th:if="${session.user.bid==1}"><a th:href="@{/all-customers-records}"><i class="fas fa-users"></i>&nbsp;&nbsp;All Users</a></li>
+					<li><a th:href="@{/order-history}"><i class="fas fa-history"></i>&nbsp;&nbsp;Orders</a></li>
+					<li><a href=""><i class="fas fa-address-card"></i>&nbsp;&nbsp;About
+							us</a></li>
+					<li><a href=""><i class="fas fa-phone-square-alt"></i>&nbsp;&nbsp;Contact
+							us</a></li>
+					<li><a th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;Logout</a></li>
+				</ul>
+			</div>
+			<div class="col-9 history">
+				<div class="history-section">
+					<div class="history-head">
+						<p>
+							<span><i class="fas fa-user"></i></span>&nbsp;<span
+								class="name-user" th:if="${session.user.name}"
+								th:text="${session.user.name}"></span>
+						</p>
+					</div>
 
-	<div class="container-fluid mt-5">
-		<div class="row">
-			<div class="col-12">
-				<table class="table table-striped">
+							<table class="table table-striped">
 					<thead>
 						<tr>
 							<th scope="col">#</th>
@@ -49,13 +58,14 @@
 					</tbody>
 				</table>
 
+						
+
+				</div>
 			</div>
-
-
 		</div>
 
-
 	</div>
+
 	<!-- <script th:inline="javascript">
 	let str = [[${list1}]];
 	let obj = JSON.parse(str);

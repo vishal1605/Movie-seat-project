@@ -22,7 +22,7 @@
 							us</a></li>
 				</ul>
 			</div>
-			<div class="col-8">
+			<div class="col-9 seat-main">
 				<h2>Please schedule your date and time:</h2>
 				<div class="date_form">
 					<form th:action="@{/check}" method="post" id="form">
@@ -153,7 +153,7 @@
 
 					<input type="checkbox" id="cb22" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat22')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat22')}" th:disabled="${#lists.contains(seats, 'seat22')}" value="seat22"
-						name="seatNo[]"><label class="btn btn-success" for="cb2">22</label>&nbsp;&nbsp;&nbsp;
+						name="seatNo[]"><label class="btn btn-success" for="cb22">22</label>&nbsp;&nbsp;&nbsp;
 
 					<input type="checkbox" id="cb23" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat23')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat23')}" th:disabled="${#lists.contains(seats, 'seat23')}" value="seat23"

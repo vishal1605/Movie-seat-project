@@ -87,7 +87,7 @@ public class BusController {
 
 		Customer object = (Customer) session.getAttribute("user");
 		if (object != null) {
-			return "redirect:/home";
+			return "redirect:/booking-seat";
 		} else {
 
 			Customer customer = dao.login(email, password);
@@ -98,12 +98,12 @@ public class BusController {
 			} else {
 				session.setAttribute("user", customer);
 			}
-			return "redirect:/home";
+			return "redirect:/booking-seat";
 		}
 	}
 
 //	Dashboard page
-	@GetMapping("/home")
+	@GetMapping("/booking-seat")
 	public String getUser(HttpSession session, Model m) {
 		session.getAttribute("bookingdate");
 		session.removeAttribute("bookingdate");
@@ -155,7 +155,7 @@ public class BusController {
 			return "redirect:/loginForm";
 		} else if (seat.getSeatNo() == null) {
 			System.out.println("Seat is null");
-			return "redirect:/home";
+			return "redirect:/booking-seat";
 		} else if (date == null) {
 			date = currentDate;
 			time = "09:00 am";
@@ -172,7 +172,7 @@ public class BusController {
 				seat.setTotal(sum);
 				seat.setPrice(price);
 
-				OrderHistory history = new OrderHistory(seat.getSeatNo(), price, sum, date2, date2, time, object);
+				OrderHistory history = new OrderHistory(seat.getSeatNo(), price, sum, todayDate, date2, time, object);
 				dao.saveSeat(seat, object, date2, time);
 				dao.saveHistory(history, object);
 				List<String> seatNo1 = new ArrayList<String>();
@@ -199,11 +199,11 @@ public class BusController {
 
 				m.addAttribute("seats", seatNo1);
 				session.setAttribute("user", object);
-				return "redirect:/home";
+				return "redirect:/booking-seat";
 
 			} else {
 				System.out.println("ye date current date se pahle ki date hai");
-				return "redirect:/home";
+				return "redirect:/booking-seat";
 
 			}
 		} else {
@@ -219,7 +219,7 @@ public class BusController {
 				seat.setTotal(sum);
 				seat.setPrice(price);
 
-				OrderHistory history = new OrderHistory(seat.getSeatNo(), price, sum, date2, date2, time, object);
+				OrderHistory history = new OrderHistory(seat.getSeatNo(), price, sum, todayDate, date2, time, object);
 				dao.saveSeat(seat, object, date2, time);
 				dao.saveHistory(history, object);
 				List<String> seatNo1 = new ArrayList<String>();
@@ -246,11 +246,11 @@ public class BusController {
 
 				m.addAttribute("seats", seatNo1);
 				session.setAttribute("user", object);
-				return "redirect:/home";
+				return "redirect:/booking-seat";
 
 			} else {
 				System.out.println("ye date current date se pahle ki date hai");
-				return "redirect:/home";
+				return "redirect:/booking-seat";
 
 			}
 		}
@@ -296,7 +296,7 @@ public class BusController {
 			}
 
 		}
-		return "redirect:/home";
+		return "redirect:/booking-seat";
 	}
 
 //	Admin can see all Customers

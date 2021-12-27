@@ -22,13 +22,15 @@
 							us</a></li>
 				</ul>
 			</div>
-			<div class="col-8">
-				<div class="container login d-flex justify-content-center">
+			<div class="col-9 login-form">
+				<div class="login">
 					<form action="processing" method="post">
 						<div>
 							<span th:text="${failed}"></span>
 						</div>
-						<br />
+						<div class="login-head">
+						<h3>Login</h3>
+						</div>
 						<div class="form-group">
 							<label for="exampleInputEmail1">Email address</label> <input
 								type="email" class="form-control" id="exampleInputEmail1"
@@ -41,9 +43,15 @@
 								type="password" class="form-control" id="exampleInputPassword1"
 								placeholder="Password" name="password">
 						</div>
+						<div class="forget">
+					<small><span><a href="#">Forget password</a></span></small>
+					</div>
 
 						<button type="submit" class="btn btn-primary btn2">Login</button>
 					</form>
+					<div class="login-register">
+					<p>New user <span><a th:href="@{/register}">click here</a></span></p>
+					</div>
 				</div>
 
 
