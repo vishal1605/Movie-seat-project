@@ -1,33 +1,33 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-.mybtn:checked + label {
-    background-color: white;
-    color: black;
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
 }
 
-.box1:checked + label {
-    background-color: red;
-    color: black;
+.mybtn:checked+label {
+	background-color: white;
+	color: black;
 }
 
+.box1:checked+label {
+	background-color: red;
+	color: black;
+}
 
-.active{
+.active {
 	color: skyblue;
 }
 
-.deactive{
+.deactive {
 	color: red;
 }
-.base{
+
+.base {
 	background-color: #f7fafa;
 	/* background: url("/images/backgroung poster.jpeg");
 	background-repeat: no-repeat;
     background-size: auto; */
 	/* border: 2px dashed green; */
-	
 }
 /* .base-row{
 	margin-top: 70px;
@@ -36,36 +36,34 @@
 } */
 
 /* ===================================Menu started from here========================================================== */
-
-.menu{
+.menu {
 	/* border: 2px solid red; */
 	background-color: #f7364a;
 	min-height: 750px;
 }
 
-.col-3{
+.col-3 {
 	padding-top: 40px;
 }
-.menu > ul{
+
+.menu>ul {
 	/* border: 2px solid blue; */
 	list-style-type: none;
 	width: 70%;
 	margin: 1px auto;
-	
 }
 
-.menu ul li{
+.menu ul li {
 	/* border: 2px solid green; */
 	margin: 5px auto;
 	margin-bottom: 30px;
-	
-	
 }
-.menu ul li a:hover{
+
+.menu ul li a:hover {
 	color: white;
 }
 
-.menu ul li a{
+.menu ul li a {
 	text-decoration: none;
 	font-size: 18px;
 	padding: 5px 15px;
@@ -77,62 +75,53 @@
 
 /* ===================================content starts here============================ */
 
-.seat-section{
-	/* border: 2px solid yellow; */
-}
-
-.seat-main, .login-form, .register-form{
+.seat-main, .login-form, .register-form {
 	/* border: 2px solid black; */
 	padding: 40px 3px 40px 20px;
-	
 }
 
-.col-8 .date_form{
+.col-8 .date_form {
 	margin-top: 20px;
 }
 
-.seat-section .seat-row .col-5{
+.seat-section .seat-row .col-5 {
 	/* border: 2px solid black; */
 	margin: 5px;
 	padding: 10px 10px;
-	
 }
 
-.seat-section .seat-row .col-5:nth-child(1){
+.seat-section .seat-row .col-5:nth-child(1) {
 	margin-left: 35px
-	
 }
 
-.seat-section .seat-row{
+.seat-section .seat-row {
 	margin-top: 30px;
 	/* border: 2px solid black; */
 }
 
-.btn1{
+.btn1 {
 	margin-left: 45px;
 	/* margin-top: -210px; */
-	
 }
 
-.seat-section .symbol .one{
+.seat-section .symbol .one {
 	font-size: 25px;
 	color: red;
 }
 
-.seat-section .symbol{
+.seat-section .symbol {
 	margin-left: 21px;
 	margin-top: 15px;
 }
 
-.seat-section .symbol .two{
+.seat-section .symbol .two {
 	font-size: 25px;
 	margin-left: 10px;
 	color: green;
 }
 
 /* ===========================================Login starts here============================================= */
-
-.login{
+.login {
 	/* border: 2px solid red; */
 	width: 50%;
 	margin-left: 200px;
@@ -140,46 +129,212 @@
 	box-shadow: 5px 5px 10px gray;
 }
 
-.login-head{
+.login-head {
 	background-color: #f7364a;
 	text-align: center;
 	margin-bottom: 20px;
 }
 
-.login-head h3{
+.login-head h3 {
 	color: white;
 	padding-top: 3px;
 	padding-bottom: 3px;
 }
 
-.login-register{
+.login-register {
 	margin-top: 10px;
 }
 
 /* ======================================Order history start here============================================== */
-
-.history{
+.history {
 	padding-right: 0;
-	padding-left:0;
+	padding-left: 0;
 }
-.history .history-section .history-head{
+
+.history .history-section .history-head {
 	background-color: #f7364a;
 	text-align: right;
 }
 
-.history-section .history-head p{
+.history-section .history-head p {
 	margin-right: 15px;
 }
 
-.history-section .history-head p span .fa-user{
+.history-section .history-head p span .fa-user {
 	padding: 8px;
 	background-color: white;
 	margin: 3px 0 3px 0;
 	border-radius: 15px;
-	
 }
-.history-section .history-head p .name-user{
+
+.history-section .history-head p .name-user {
 	font-size: 20px;
 	font-weight: 700;
 	color: white;
+}
+
+.history-section .history-head p span .fa-envelope {
+	padding: 8px;
+	background-color: white;
+	margin: 3px 0 3px 0;
+	border-radius: 15px;
+}
+
+/* ======================================Dashboard start here============================================== */
+.dashboard {
+	padding-right: 0;
+	padding-left: 0;
+}
+
+.dashboard .dashboard-section .dashboard-head {
+	background-color: #f7364a;
+	text-align: right;
+}
+
+.dashboard-section .dashboard-head p {
+	margin-right: 15px;
+}
+
+.dashboard-section .dashboard-head p span .fa-user {
+	padding: 8px;
+	background-color: white;
+	margin: 3px 0 3px 0;
+	border-radius: 15px;
+}
+
+.dashboard-section .dashboard-head p .name-user {
+	font-size: 20px;
+	font-weight: 700;
+	color: white;
+}
+
+.dashboard .dashboard-section .dashboard-seat {
+	margin-left: 20px;
+	margin-top: 20px;
+}
+
+.dashboard-section .dashboard-head p span .fa-envelope {
+	padding: 8px;
+	background-color: white;
+	margin: 3px 0 3px 0;
+	border-radius: 15px;
+}
+
+/* ==============================================Before Login home============================================== */
+.before_login_home {
+	padding-right: 0;
+	padding-left: 0;
+}
+
+.before_login_home .before_head {
+	background-color: #f7364a;
+	position: relative;
+}
+
+.before_login_home .before_head input {
+	margin: 8px 0 8px 100px;
+	border: none;
+	outline: none;
+	background: white;
+	border-radius: 20px;
+	padding: 2px;
+	font-size: 17px;
+	font-weight: 400;
+	width: 250px;
+}
+
+.before_login_home .before_head button {
+	padding: 3px 8px;
+	border-radius: 50%;
+	border: none;
+	outline: none;
+	background: none;
+	position: absolute;
+	margin-top: 8px;
+	margin-left: -35px;
+}
+
+/* =======================================Card flip section========================================================== */
+
+.before_main_section{
+	display: flex;
+	justify-content: space-around;
+	margin-top: 15px;
+}
+
+.before_main_section .card-section {
+	width: 252px;
+	height: 335px;
+	background-color: yellow;
+	
+}
+
+.card-section img{
+	width: 100%;
+}
+.card-section .card_body button{
+	margin-left: 35%;
+}
+
+
+/* =======================================main dashboard section========================================================== */
+
+.main-dashboard {
+	padding-right: 0;
+	padding-left: 0;
+}
+
+.main-dashboard .main-dashboard-head {
+	background-color: #f7364a;
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.main-dashboard .main-dashboard-head input {
+	margin: 5px 0 5px 100px;
+	border: none;
+	outline: none;
+	background: white;
+	border-radius: 20px;
+	padding: 2px;
+	font-size: 17px;
+	font-weight: 400;
+	width: 250px;
+}
+
+.main-dashboard .main-dashboard-head button {
+	padding: 3px 8px;
+	border-radius: 50%;
+	border: none;
+	outline: none;
+	background: none;
+	position: absolute;
+	margin-top: 8px;
+	margin-left: -35px;
+}
+
+.main-dashboard-head .main-dashboard-right p{
+	margin-right: 15px;
+	
+}
+
+.main-dashboard-head .main-dashboard-right p span .fa-user {
+	padding: 8px;
+	background-color: white;
+	border-radius: 15px;
+}
+
+.main-dashboard-head .main-dashboard-right p .name-user {
+	font-size: 20px;
+	font-weight: 700;
+	color: white;
+}
+
+.main-dashboard-head .main-dashboard-right p span .fa-envelope {
+	padding: 8px;
+	background-color: white;
+	margin: 3px 0 3px 0;
+	border-radius: 15px;
 }

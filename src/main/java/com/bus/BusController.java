@@ -33,14 +33,14 @@ public class BusController {
 	
 	//Opening home page
 		@GetMapping("/")
-		public String home(Model m) {
-			
+		public String home(Model m) {			
 			return "index";
 		}
 
 //second page
 	@GetMapping("/booking")
-	public String bookingCheck(Model m) {
+	public String bookingCheck(@RequestParam("spider") String spider, Model m) {
+		System.out.println(spider);
 		LocalDate now = LocalDate.now();
 		String time = "09:00 am";
 		List<String> seatNo1 = new ArrayList<String>();
@@ -98,13 +98,19 @@ public class BusController {
 			} else {
 				session.setAttribute("user", customer);
 			}
-			return "redirect:/booking-seat";
+			return "redirect:/home";
 		}
+	}
+	
+	@GetMapping("/home")
+	public String mainDashboard() {
+		return "main-dashboard";
 	}
 
 //	Dashboard page
 	@GetMapping("/booking-seat")
-	public String getUser(HttpSession session, Model m) {
+	public String getUser(@RequestParam("spider") String spider, HttpSession session, Model m) {
+		System.out.println(spider);
 		session.getAttribute("bookingdate");
 		session.removeAttribute("bookingdate");
 		session.getAttribute("bookingtime");
@@ -301,18 +307,30 @@ public class BusController {
 
 //	Admin can see all Customers
 	@GetMapping("/all-customers-records")
-	public String allRecords(Model m) {
-		List<Customer> all = dao.getAll();
-		m.addAttribute("records", all);
-		return "user_records";
+	public String allRecords(Model m, HttpSession session) {
+		Customer object = (Customer) session.getAttribute("user");
+		long bid = object.getBid();
+		if (bid == 1) {
+			List<Customer> all = dao.getAll();
+			m.addAttribute("records", all);
+			return "user_records";
+		} else {
+			return "redirect:/booking-seat";
+		}
 	}
 
 //	Admin can see all Customers and their seats
 	@GetMapping("/all-seats/{id}")
-	public String allSeats(@PathVariable("id") long id, Model m) {
-		List<OrderHistory> list = dao.getAllHistory(id);
-		m.addAttribute("seatRecords", list);
-		return "seat-records";
+	public String allSeats(@PathVariable("id") long id, Model m, HttpSession session) {
+		Customer object = (Customer) session.getAttribute("user");
+		long bid = object.getBid();
+		if (bid == 1) {
+			List<OrderHistory> list = dao.getAllHistory(id);
+			m.addAttribute("seatRecords", list);
+			return "seat-records";
+		} else {
+			return "redirect:/booking-seat";
+		}
 
 	}
 

@@ -27,6 +27,10 @@ public class CustomerDao {
 	@Autowired
 	private HistoryRepo repo2;
 	
+	@Autowired
+	private MovieRepo movieRepo;
+	
+	
 	public int save(Customer customer) {
 		
 		repo.save(customer);
@@ -86,6 +90,7 @@ public class CustomerDao {
 	public void delete(long id) {
 		repo1.deleteById(id);
 	}
+	
 	
 	
 	

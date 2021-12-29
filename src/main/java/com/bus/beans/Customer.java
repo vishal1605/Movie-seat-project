@@ -25,7 +25,7 @@ public class Customer {
 	
 	@Column(nullable = false)
 	private String name;
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String email;
 	@Column(nullable = false)
 	private String password;
@@ -84,9 +84,8 @@ public class Customer {
 		this.history = history;
 	}
 
-	public Customer(long bid, String name, String email, String password, List<Seat> seat, OrderHistory history) {
+	public Customer(String name, String email, String password, List<Seat> seat, OrderHistory history) {
 		super();
-		this.bid = bid;
 		this.name = name;
 		this.email = email;
 		this.password = password;
@@ -94,8 +93,9 @@ public class Customer {
 		this.history = history;
 	}
 
-	public Customer(String name, String email, String password, List<Seat> seat, OrderHistory history) {
+	public Customer(long bid, String name, String email, String password, List<Seat> seat, OrderHistory history) {
 		super();
+		this.bid = bid;
 		this.name = name;
 		this.email = email;
 		this.password = password;
@@ -114,7 +114,7 @@ public class Customer {
 				+ seat + ", history=" + history + "]";
 	}
 	
-	
 
 		
+	
 }

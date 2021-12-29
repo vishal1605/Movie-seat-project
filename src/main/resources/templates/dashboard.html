@@ -13,7 +13,7 @@
 		<div class="row base-row">
 			<div class="col-3 menu">
 				<ul class="list">
-					<li><a th:href="@{/booking-seat}"><i class="fas fa-home"></i>&nbsp;&nbsp;Home</a></li>
+					<li><a th:href="@{/home}"><i class="fas fa-home"></i>&nbsp;&nbsp;Home</a></li>
 					<li><a href="#"><i class="fas fa-cogs"></i>&nbsp;&nbsp;Setting</a></li>
 					<li th:if="${session.user.bid==1}"><a th:href="@{/all-customers-records}"><i class="fas fa-users"></i>&nbsp;&nbsp;All Users</a></li>
 					<li><a th:href="@{/order-history}"><i class="fas fa-history"></i>&nbsp;&nbsp;Orders</a></li>
@@ -24,15 +24,17 @@
 					<li><a th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;Logout</a></li>
 				</ul>
 			</div>
-			<div class="col-9 history">
-				<div class="history-section">
-					<div class="history-head">
+			<div class="col-9 dashboard">
+				<div class="dashboard-section">
+					<div class="dashboard-head">
 						<p>
 							<span><i class="fas fa-user"></i></span>&nbsp;<span
 								class="name-user" th:if="${session.user.name}"
-								th:text="${session.user.name}"></span>
+								th:text="${session.user.name}"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><i class="fas fa-envelope"></i>
+								<sup><i class="fas fa-sms"></i></sup></span>
 						</p>
 					</div>
+					<div class="dashboard-seat">
 
 										<h2>Please schedule your date and time:</h2>
 				<div class="date_form">
@@ -261,7 +263,7 @@
 					<button type="submit" class="btn btn-primary btn1">Book seat</button>
 				</form>
 							
-						
+				</div>		
 
 				</div>
 			</div>
