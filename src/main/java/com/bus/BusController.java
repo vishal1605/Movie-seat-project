@@ -30,17 +30,23 @@ public class BusController {
 
 	@Autowired
 	private CustomerDao dao;
-	
-	//Opening home page
-		@GetMapping("/")
-		public String home(Model m) {			
-			return "index";
-		}
+
+	// Opening home page
+	@GetMapping("/")
+	public String home(Model m, HttpSession session) {
+		
+		
+		String movie=(String)session.getAttribute("movieName");
+		System.out.println(movie+"========Index");
+		
+		return "index";
+	}
 
 //second page
 	@GetMapping("/booking")
-	public String bookingCheck(@RequestParam("spider") String spider, Model m) {
-		System.out.println(spider);
+	public String bookingCheck(@RequestParam("movieName") String movieName, Model m, HttpSession session) {
+		session.setAttribute("movieName", movieName);
+		System.out.println(movieName);
 		LocalDate now = LocalDate.now();
 		String time = "09:00 am";
 		List<String> seatNo1 = new ArrayList<String>();
@@ -64,7 +70,6 @@ public class BusController {
 	public String register() {
 		return "register";
 	}
-
 
 //	Login form
 	@GetMapping("/loginForm")
@@ -101,20 +106,26 @@ public class BusController {
 			return "redirect:/home";
 		}
 	}
-	
+
 	@GetMapping("/home")
-	public String mainDashboard() {
+	public String mainDashboard(HttpSession session) {
+		session.getAttribute("bookingdate");
+		session.removeAttribute("bookingdate");
+		session.getAttribute("bookingtime");
+		session.removeAttribute("bookingtime");
+		String movie=(String)session.getAttribute("movieName");
+		System.out.println(movie);
+		session.removeAttribute("movieName");
+		System.out.println(movie);
 		return "main-dashboard";
 	}
 
 //	Dashboard page
 	@GetMapping("/booking-seat")
-	public String getUser(@RequestParam("spider") String spider, HttpSession session, Model m) {
-		System.out.println(spider);
-		session.getAttribute("bookingdate");
-		session.removeAttribute("bookingdate");
-		session.getAttribute("bookingtime");
-		session.removeAttribute("bookingtime");
+	public String getUser(@RequestParam("movieName") String movieName, HttpSession session, Model m) {
+		System.out.println(movieName);
+		session.setAttribute("movieName", movieName);
+
 		LocalDate now = LocalDate.now();
 		String time = "09:00 am";
 
@@ -144,13 +155,21 @@ public class BusController {
 	public String logout(HttpSession session) {
 		Customer object = (Customer) session.getAttribute("user");
 		session.removeAttribute("user");
+		
+		session.getAttribute("bookingdate");
+		session.removeAttribute("bookingdate");
+		session.getAttribute("bookingtime");
+		session.removeAttribute("bookingtime");
+		session.getAttribute("movieName");
+		session.removeAttribute("movieName");
 
 		return "redirect:/";
 	}
 
 //	Seat booking process
 	@PostMapping("/book-seat")
-	public String bookSeat(@ModelAttribute("Seat") Seat seat, HttpSession session, Model m) {
+	public String bookSeat(@ModelAttribute("Seat") Seat seat, @RequestParam("movieName") String movieName,
+			HttpSession session, Model m) {
 		LocalDate currentDate = LocalDate.now();
 		ZoneId defaultZoneId = ZoneId.systemDefault();
 		Date todayDate = Date.from(currentDate.atStartOfDay(defaultZoneId).toInstant());
@@ -166,7 +185,7 @@ public class BusController {
 			date = currentDate;
 			time = "09:00 am";
 			if ((date.isAfter(currentDate)) || (date.equals(currentDate))) {
-				
+
 				Date date2 = Date.from(date.atStartOfDay(defaultZoneId).toInstant());
 				List<Double> price = new ArrayList<Double>();
 				double sum = 0;
@@ -178,7 +197,7 @@ public class BusController {
 				seat.setTotal(sum);
 				seat.setPrice(price);
 
-				OrderHistory history = new OrderHistory(seat.getSeatNo(), price, sum, todayDate, date2, time, object);
+				OrderHistory history = new OrderHistory(seat.getSeatNo(), price, sum, movieName, todayDate, date2, time, object);
 				dao.saveSeat(seat, object, date2, time);
 				dao.saveHistory(history, object);
 				List<String> seatNo1 = new ArrayList<String>();
@@ -205,11 +224,11 @@ public class BusController {
 
 				m.addAttribute("seats", seatNo1);
 				session.setAttribute("user", object);
-				return "redirect:/booking-seat";
+				return "redirect:/home";
 
 			} else {
 				System.out.println("ye date current date se pahle ki date hai");
-				return "redirect:/booking-seat";
+				return "redirect:/booking-seat?movieName=" + movieName;
 
 			}
 		} else {
@@ -225,7 +244,7 @@ public class BusController {
 				seat.setTotal(sum);
 				seat.setPrice(price);
 
-				OrderHistory history = new OrderHistory(seat.getSeatNo(), price, sum, todayDate, date2, time, object);
+				OrderHistory history = new OrderHistory(seat.getSeatNo(), price, sum, movieName, todayDate, date2, time, object);
 				dao.saveSeat(seat, object, date2, time);
 				dao.saveHistory(history, object);
 				List<String> seatNo1 = new ArrayList<String>();
@@ -252,11 +271,11 @@ public class BusController {
 
 				m.addAttribute("seats", seatNo1);
 				session.setAttribute("user", object);
-				return "redirect:/booking-seat";
+				return "redirect:/home";
 
 			} else {
 				System.out.println("ye date current date se pahle ki date hai");
-				return "redirect:/booking-seat";
+				return "redirect:/booking-seat?movieName=" + movieName;
 
 			}
 		}
@@ -266,7 +285,7 @@ public class BusController {
 //	Order history
 	@GetMapping("/order-history")
 	public String history(HttpSession session, Model m) {
-		Date todayDate= new Date();
+		Date todayDate = new Date();
 		Customer object = (Customer) session.getAttribute("user");
 		session.setAttribute("user", object);
 		List<OrderHistory> list = dao.getAllHistory(object.getBid());
@@ -334,8 +353,39 @@ public class BusController {
 
 	}
 
+//	User Setting
+	@GetMapping("/setting")
+	public String getSetting(Model m, HttpSession session) {
+		Customer customer = (Customer) session.getAttribute("user");
+		m.addAttribute("user", customer);
+		return "setting";
+	}
+
+//	User update form
+	@GetMapping("/setting/update/{id}")
+	public String updateForm(@PathVariable("id") long id) {
+		System.out.println(id);
+		return "update-details";
+
+	}
+
+//	update Details
+	@PostMapping("/setting/update-details")
+	public String updateDetails(@ModelAttribute("customer") Customer cust, HttpSession session) {
+		String name = cust.getName();
+		String email = cust.getEmail();
+		Customer customer = (Customer) session.getAttribute("user");
+		customer.setName(name);
+		customer.setEmail(email);
+		dao.updateDetail(customer);
+
+		return "redirect:/setting";
+
+	}
+
 	@PostMapping("/check")
-	public String checkDate(@RequestParam("localdate") String date, @RequestParam("localtime") String time, Model m, HttpSession session) {
+	public String checkDate(@RequestParam("localdate") String date, @RequestParam("localtime") String time, Model m,
+			HttpSession session) {
 		Customer object = (Customer) session.getAttribute("user");
 		if (object == null) {
 			LocalDate now = LocalDate.parse(date);

@@ -14,8 +14,8 @@
 			<div class="col-3 menu">
 				<ul class="list">
 					<li><a th:href="@{/}"><i class="fas fa-home"></i>&nbsp;&nbsp;Home</a></li>
-					<li><a href=""><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Register</a></li>
-					<li><a href=""><i class="fas fa-users"></i>&nbsp;&nbsp;Login</a></li>
+					<li><a th:href="@{/register}"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Register</a></li>
+					<li><a th:href="@{/loginForm}"><i class="fas fa-users"></i>&nbsp;&nbsp;Login</a></li>
 					<li><a href=""><i class="fas fa-address-card"></i>&nbsp;&nbsp;About
 							us</a></li>
 					<li><a href=""><i class="fas fa-phone-square-alt"></i>&nbsp;&nbsp;Contact
@@ -41,6 +41,7 @@
 				</div>
 				<br />
 				<form action="book-seat" method="post">
+				<input type="text" name="movieName" th:value="${session.movieName}" />
 					<div class="container seat-section">
 					<h2>Please select your seat</h2>
 					<div class="symbol"><i class="fas fa-square one"></i>&nbsp;<span>Already Booked</span>&nbsp;&nbsp;&nbsp;&nbsp;

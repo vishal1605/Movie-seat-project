@@ -91,6 +91,11 @@ public class CustomerDao {
 		repo1.deleteById(id);
 	}
 	
+	public int updateDetail(Customer customer) {
+		repo.save(customer);
+		return 1;
+	}
+	
 	
 	
 	

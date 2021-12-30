@@ -33,6 +33,9 @@ public class OrderHistory {
 	
 	private double total;
 	
+	@Column(name = "movie_name")
+	private String movieName;
+	
 	@Temporal(value=TemporalType.DATE)
 	@Column(name = "book_on_date")
 	private Date bookOnDate;
@@ -79,6 +82,14 @@ public class OrderHistory {
 		this.total = total;
 	}
 
+	public String getMovieName() {
+		return movieName;
+	}
+
+	public void setMovieName(String movieName) {
+		this.movieName = movieName;
+	}
+
 	public Date getBookOnDate() {
 		return bookOnDate;
 	}
@@ -111,25 +122,27 @@ public class OrderHistory {
 		this.customer = customer;
 	}
 
-	public OrderHistory(List<String> seat, List<Double> price, double total, Date bookOnDate, Date showOnDate,
-			String showTime, Customer customer) {
+	public OrderHistory(long hId, List<String> seat, List<Double> price, double total, String movieName,
+			Date bookOnDate, Date showOnDate, String showTime, Customer customer) {
 		super();
+		this.hId = hId;
 		this.seat = seat;
 		this.price = price;
 		this.total = total;
+		this.movieName = movieName;
 		this.bookOnDate = bookOnDate;
 		this.showOnDate = showOnDate;
 		this.showTime = showTime;
 		this.customer = customer;
 	}
 
-	public OrderHistory(long hId, List<String> seat, List<Double> price, double total, Date bookOnDate, Date showOnDate,
-			String showTime, Customer customer) {
+	public OrderHistory(List<String> seat, List<Double> price, double total, String movieName, Date bookOnDate,
+			Date showOnDate, String showTime, Customer customer) {
 		super();
-		this.hId = hId;
 		this.seat = seat;
 		this.price = price;
 		this.total = total;
+		this.movieName = movieName;
 		this.bookOnDate = bookOnDate;
 		this.showOnDate = showOnDate;
 		this.showTime = showTime;
@@ -143,11 +156,12 @@ public class OrderHistory {
 
 	@Override
 	public String toString() {
-		return "OrderHistory [hId=" + hId + ", seat=" + seat + ", price=" + price + ", total=" + total + ", bookOnDate="
-				+ bookOnDate + ", showOnDate=" + showOnDate + ", showTime=" + showTime + ", customer=" + customer + "]";
+		return "OrderHistory [hId=" + hId + ", seat=" + seat + ", price=" + price + ", total=" + total + ", movieName="
+				+ movieName + ", bookOnDate=" + bookOnDate + ", showOnDate=" + showOnDate + ", showTime=" + showTime
+				+ ", customer=" + customer + "]";
 	}
+
 	
 	
-		
 
 }
