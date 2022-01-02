@@ -45,6 +45,9 @@
 .col-3 {
 	padding-top: 40px;
 }
+.menu .logo{
+	border-radius: 10px;
+}
 
 .menu>ul {
 	/* border: 2px solid blue; */
@@ -74,7 +77,6 @@
 /* ==============================Menu ends Here========================================= */
 
 /* ===================================content starts here============================ */
-
 .seat-main, .login-form, .register-form {
 	/* border: 2px solid black; */
 	padding: 40px 3px 40px 20px;
@@ -255,30 +257,28 @@
 }
 
 /* =======================================Card flip section========================================================== */
-
-.before_main_section{
-	display: flex;
-	justify-content: space-around;
+.before_main_section {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
 	margin-top: 15px;
+	margin-left: 15px;
 }
 
 .before_main_section .card-section {
-	width: 252px;
+	width: 250px;
 	height: 335px;
 	background-color: yellow;
-	
 }
 
-.card-section img{
+.card-section img {
 	width: 100%;
 }
-.card-section .card_body button{
+
+.card-section .card_body button {
 	margin-left: 35%;
 }
 
-
 /* =======================================main dashboard section========================================================== */
-
 .main-dashboard {
 	padding-right: 0;
 	padding-left: 0;
@@ -315,9 +315,8 @@
 	margin-left: -35px;
 }
 
-.main-dashboard-head .main-dashboard-right p{
+.main-dashboard-head .main-dashboard-right p {
 	margin-right: 15px;
-	
 }
 
 .main-dashboard-head .main-dashboard-right p span .fa-user {
@@ -340,19 +339,20 @@
 }
 
 /* ================================================Setting starts here===================================================== */
-
-.history-section .setting-details{
+.history-section .setting-details {
 	width: 350px;
 	height: 300px;
 	/* background-color: skyblue; */
 	box-shadow: 5px 5px 10px gray;
 	margin-left: 200px;
-	padding: 5px 20px; 
+	padding: 5px 20px;
 }
-.setting-details .table-edit{
+
+.setting-details .table-edit {
 	line-height: 70px;
 }
-.setting-details table tbody tr th{
+
+.setting-details table tbody tr th {
 	/* border: 2px solid red; */
 	padding-right: 35px;
 }
