@@ -17,7 +17,7 @@
 			</div>
 				<ul class="list">
 					<li><a th:href="@{/home}"><i class="fas fa-home"></i>&nbsp;&nbsp;Home</a></li>
-					<li><a th:href="@{/setting}"><i class="fas fa-cogs"></i>&nbsp;&nbsp;Setting</a></li>
+					<li><a th:classappend="${menu == 'setting'} ? 'text-dark' : ' '" th:href="@{/setting}"><i class="fas fa-cogs"></i>&nbsp;&nbsp;Setting</a></li>
 					<li th:if="${session.user.bid==1}"><a
 						th:href="@{/all-customers-records}"><i class="fas fa-users"></i>&nbsp;&nbsp;All
 							Users</a></li>

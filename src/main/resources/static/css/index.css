@@ -86,6 +86,12 @@
 	margin-top: 20px;
 }
 
+.seat-main .date_form form input[type="date"]::-webkit-clear-button {
+    display: none;
+    -webkit-appearance: none;
+}
+
+
 .seat-section .seat-row .col-5 {
 	/* border: 2px solid black; */
 	margin: 5px;
@@ -260,13 +266,13 @@
 .before_main_section {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	margin-top: 15px;
+	margin-top: 8px;
 	margin-left: 15px;
 }
 
 .before_main_section .card-section {
 	width: 250px;
-	height: 335px;
+	height: 328px;
 	background-color: yellow;
 }
 
@@ -336,6 +342,11 @@
 	background-color: white;
 	margin: 3px 0 3px 0;
 	border-radius: 15px;
+}
+
+.main-dashboard .notice{
+	box-shadow: 0 3px 5px gray;
+	
 }
 
 /* ================================================Setting starts here===================================================== */

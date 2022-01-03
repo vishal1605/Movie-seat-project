@@ -34,11 +34,11 @@ public class BusController {
 	// Opening home page
 	@GetMapping("/")
 	public String home(Model m, HttpSession session) {
-		
-		
-		String movie=(String)session.getAttribute("movieName");
-		System.out.println(movie+"========Index");
-		
+
+		String movie = (String) session.getAttribute("movieName");
+		System.out.println(movie + "========Index");
+		m.addAttribute("menu", "home");
+
 		return "index";
 	}
 
@@ -48,6 +48,7 @@ public class BusController {
 		session.setAttribute("movieName", movieName);
 		System.out.println(movieName);
 		LocalDate now = LocalDate.now();
+		LocalDate monthLimit = LocalDate.now();
 		String time = "09:00 am";
 		List<String> seatNo1 = new ArrayList<String>();
 		List<Seat> all = dao.getAllSeat(now, time);
@@ -60,6 +61,8 @@ public class BusController {
 		}
 
 		m.addAttribute("date", now);
+		m.addAttribute("max", monthLimit.plusMonths(1));
+		m.addAttribute("min", monthLimit);
 		m.addAttribute("time", time);
 		m.addAttribute("seats", seatNo1);
 		return "home";
@@ -67,13 +70,16 @@ public class BusController {
 
 //Registeration User
 	@GetMapping("/register")
-	public String register() {
+	public String register(Model m) {
+
+		m.addAttribute("menu", "register");
 		return "register";
 	}
 
 //	Login form
 	@GetMapping("/loginForm")
 	public String loginForm(Model m) {
+		m.addAttribute("menu", "login");
 		return "login";
 	}
 
@@ -108,15 +114,20 @@ public class BusController {
 	}
 
 	@GetMapping("/home")
-	public String mainDashboard(HttpSession session) {
+	public String mainDashboard(HttpSession session, Model m) {
 		session.getAttribute("bookingdate");
 		session.removeAttribute("bookingdate");
 		session.getAttribute("bookingtime");
 		session.removeAttribute("bookingtime");
-		String movie=(String)session.getAttribute("movieName");
-		System.out.println(movie);
+		String movie = (String) session.getAttribute("movieName");
 		session.removeAttribute("movieName");
-		System.out.println(movie);
+		m.addAttribute("menu", "home");
+
+		String message = (String) session.getAttribute("msg");
+		m.addAttribute("message", message);
+		session.removeAttribute("msg");
+		System.out.println(message);
+
 		return "main-dashboard";
 	}
 
@@ -127,6 +138,7 @@ public class BusController {
 		session.setAttribute("movieName", movieName);
 
 		LocalDate now = LocalDate.now();
+		LocalDate monthLimit = LocalDate.now();
 		String time = "09:00 am";
 
 		Customer customer = (Customer) session.getAttribute("user");
@@ -144,6 +156,8 @@ public class BusController {
 
 		m.addAttribute("date", now);
 		m.addAttribute("time", time);
+		m.addAttribute("max", monthLimit.plusMonths(1));
+		m.addAttribute("min", monthLimit);
 		m.addAttribute("seats", seatNo1);
 		m.addAttribute("seat", seat);
 		session.setAttribute("user", customer);
@@ -155,7 +169,7 @@ public class BusController {
 	public String logout(HttpSession session) {
 		Customer object = (Customer) session.getAttribute("user");
 		session.removeAttribute("user");
-		
+
 		session.getAttribute("bookingdate");
 		session.removeAttribute("bookingdate");
 		session.getAttribute("bookingtime");
@@ -184,7 +198,8 @@ public class BusController {
 		} else if (date == null) {
 			date = currentDate;
 			time = "09:00 am";
-			if ((date.isAfter(currentDate)) || (date.equals(currentDate))) {
+			if (((date.isAfter(currentDate)) || (date.equals(currentDate)))
+					&& (date.isBefore(currentDate.plusMonths(1)) || date.equals(currentDate.plusMonths(1)))) {
 
 				Date date2 = Date.from(date.atStartOfDay(defaultZoneId).toInstant());
 				List<Double> price = new ArrayList<Double>();
@@ -197,7 +212,8 @@ public class BusController {
 				seat.setTotal(sum);
 				seat.setPrice(price);
 
-				OrderHistory history = new OrderHistory(seat.getSeatNo(), price, sum, movieName, todayDate, date2, time, object);
+				OrderHistory history = new OrderHistory(seat.getSeatNo(), price, sum, movieName, todayDate, date2, time,
+						object);
 				dao.saveSeat(seat, object, date2, time);
 				dao.saveHistory(history, object);
 				List<String> seatNo1 = new ArrayList<String>();
@@ -224,6 +240,7 @@ public class BusController {
 
 				m.addAttribute("seats", seatNo1);
 				session.setAttribute("user", object);
+				session.setAttribute("msg", "your seat book successsfully");
 				return "redirect:/home";
 
 			} else {
@@ -232,7 +249,8 @@ public class BusController {
 
 			}
 		} else {
-			if ((date.isAfter(currentDate)) || (date.equals(currentDate))) {
+			if (((date.isAfter(currentDate)) || (date.equals(currentDate)))
+					&& (date.isBefore(currentDate.plusMonths(1)) || date.equals(currentDate.plusMonths(1)))) {
 				Date date2 = Date.from(date.atStartOfDay(defaultZoneId).toInstant());
 				List<Double> price = new ArrayList<Double>();
 				double sum = 0;
@@ -244,7 +262,8 @@ public class BusController {
 				seat.setTotal(sum);
 				seat.setPrice(price);
 
-				OrderHistory history = new OrderHistory(seat.getSeatNo(), price, sum, movieName, todayDate, date2, time, object);
+				OrderHistory history = new OrderHistory(seat.getSeatNo(), price, sum, movieName, todayDate, date2, time,
+						object);
 				dao.saveSeat(seat, object, date2, time);
 				dao.saveHistory(history, object);
 				List<String> seatNo1 = new ArrayList<String>();
@@ -271,6 +290,7 @@ public class BusController {
 
 				m.addAttribute("seats", seatNo1);
 				session.setAttribute("user", object);
+				session.setAttribute("msg", "your seat book successsfully");
 				return "redirect:/home";
 
 			} else {
@@ -303,6 +323,7 @@ public class BusController {
 
 		LocalDate date = (LocalDate) session.getAttribute("bookingdate");
 		System.out.println(date);
+		m.addAttribute("menu", "order");
 		return "history";
 	}
 
@@ -332,6 +353,7 @@ public class BusController {
 		if (bid == 1) {
 			List<Customer> all = dao.getAll();
 			m.addAttribute("records", all);
+			m.addAttribute("menu", "allusers");
 			return "user_records";
 		} else {
 			return "redirect:/booking-seat";
@@ -346,6 +368,7 @@ public class BusController {
 		if (bid == 1) {
 			List<OrderHistory> list = dao.getAllHistory(id);
 			m.addAttribute("seatRecords", list);
+			m.addAttribute("menu", "allusers");
 			return "seat-records";
 		} else {
 			return "redirect:/booking-seat";
@@ -358,13 +381,15 @@ public class BusController {
 	public String getSetting(Model m, HttpSession session) {
 		Customer customer = (Customer) session.getAttribute("user");
 		m.addAttribute("user", customer);
+		m.addAttribute("menu", "setting");
 		return "setting";
 	}
 
 //	User update form
 	@GetMapping("/setting/update/{id}")
-	public String updateForm(@PathVariable("id") long id) {
+	public String updateForm(@PathVariable("id") long id, Model m) {
 		System.out.println(id);
+		m.addAttribute("menu", "setting");
 		return "update-details";
 
 	}
@@ -387,6 +412,7 @@ public class BusController {
 	public String checkDate(@RequestParam("localdate") String date, @RequestParam("localtime") String time, Model m,
 			HttpSession session) {
 		Customer object = (Customer) session.getAttribute("user");
+		LocalDate monthLimit = LocalDate.now();
 		if (object == null) {
 			LocalDate now = LocalDate.parse(date);
 			List<String> seatNo1 = new ArrayList<String>();
@@ -402,6 +428,8 @@ public class BusController {
 			session.setAttribute("bookingdate", now);
 			session.setAttribute("bookingtime", time);
 			m.addAttribute("date", now);
+			m.addAttribute("max", monthLimit.plusMonths(1));
+			m.addAttribute("min", monthLimit);
 			m.addAttribute("time", time);
 			m.addAttribute("seats", seatNo1);
 
@@ -421,6 +449,8 @@ public class BusController {
 			session.setAttribute("bookingdate", now);
 			session.setAttribute("bookingtime", time);
 			m.addAttribute("date", now);
+			m.addAttribute("max", monthLimit.plusMonths(1));
+			m.addAttribute("min", monthLimit);
 			m.addAttribute("time", time);
 			m.addAttribute("seats", seatNo1);
 
@@ -431,9 +461,13 @@ public class BusController {
 
 //	Exception handling
 	@ExceptionHandler(Exception.class)
-	public String handleError(Exception ex, Model m) {
-
-		return "redirect:/loginForm";
+	public String handleError(Exception ex, Model m, HttpSession session) {
+		Customer object = (Customer) session.getAttribute("user");
+		if (object == null) {
+			return "redirect:/loginForm";
+		} else {
+			return "redirect:/home";
+		}
 	}
 
 }

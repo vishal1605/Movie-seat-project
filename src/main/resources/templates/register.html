@@ -17,7 +17,7 @@
 			</div>
 				<ul class="list">
 					<li><a th:href="@{/}"><i class="fas fa-home"></i>&nbsp;&nbsp;Home</a></li>
-					<li><a th:href="@{/register}"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Register</a></li>
+					<li><a th:classappend="${menu == 'register'} ? 'text-dark' : ' '" th:href="@{/register}"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Register</a></li>
 					<li><a th:href="@{/loginForm}"><i class="fas fa-users"></i>&nbsp;&nbsp;Login</a></li>
 					<li><a href=""><i class="fas fa-address-card"></i>&nbsp;&nbsp;About
 							us</a></li>

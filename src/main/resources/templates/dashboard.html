@@ -49,8 +49,7 @@
 							<option value="03:00 pm">03:00 pm</option>
 							<option value="06:00 pm">06:00 pm</option>
 							<option value="09:00 pm">09:00 pm</option>
-						</select> <input type="date" name="localdate" th:value="${date}"
-							id="dateselect" />
+						</select> <input type="date" name="localdate" th:value="${date}" th:min="${min}" th:max="${max}" id="dateselect" />
 
 					</form>
 
