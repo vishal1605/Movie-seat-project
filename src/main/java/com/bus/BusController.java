@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bus.beans.Customer;
+import com.bus.beans.MovieDetails;
 import com.bus.beans.OrderHistory;
 import com.bus.beans.Seat;
 import com.bus.service.CustomerDao;
@@ -37,6 +38,8 @@ public class BusController {
 
 		String movie = (String) session.getAttribute("movieName");
 		System.out.println(movie + "========Index");
+		List<MovieDetails> movie2 = dao.getAllMovie();
+		m.addAttribute("movieList", movie2);
 		m.addAttribute("menu", "home");
 
 		return "index";
@@ -127,6 +130,8 @@ public class BusController {
 		m.addAttribute("message", message);
 		session.removeAttribute("msg");
 		System.out.println(message);
+		List<MovieDetails> movie2 = dao.getAllMovie();
+		m.addAttribute("listMovie", movie2);
 
 		return "main-dashboard";
 	}

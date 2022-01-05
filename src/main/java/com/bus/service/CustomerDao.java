@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.bus.beans.CurrentDateOperation;
 import com.bus.beans.Customer;
+import com.bus.beans.MovieDetails;
 import com.bus.beans.OrderHistory;
 import com.bus.beans.Seat;
 
@@ -94,6 +95,11 @@ public class CustomerDao {
 	public int updateDetail(Customer customer) {
 		repo.save(customer);
 		return 1;
+	}
+	
+	public List<MovieDetails> getAllMovie(){
+		List<MovieDetails> list = this.movieRepo.findAll();
+		return list;
 	}
 	
 	

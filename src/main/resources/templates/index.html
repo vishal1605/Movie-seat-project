@@ -38,12 +38,20 @@
 
 				</div>
 				<div class="before_main_section">
-					<div class="card-section">
+					<div class="card-section" th:each="movies : ${movieList}">
+						<form th:action="@{/booking}" method="get">
+							<img th:src="@{${'images/'+movies.image}}" height="280px" alt="" />
+							<div class="card_body mt-1">
+								<button class="btn btn-primary" type="submit" name="movieName" th:value="${movies.movieName}">Book now</button>
+							</div>
+						</form>
+					</div>
+<!-- 					<div class="card-section">
 						<form th:action="@{/booking}" method="get">
 							<img src="images/backgroung poster.jpeg" alt="" />
 							<div class="card_body">
 								<h5>Title</h5>
-								<button class="btn btn-primary" type="submit" name="movieName" value="Vishal">Book now</button>
+								<button class="btn btn-primary" type="submit" name="movieName" value="Sahil">Book now</button>
 							</div>
 						</form>
 					</div>
@@ -57,49 +65,35 @@
 						</form>
 					</div>
 					<div class="card-section">
-						<form action="">
+						<form th:action="@{/booking}" method="get">
 							<img src="images/backgroung poster.jpeg" alt="" />
 							<div class="card_body">
 								<h5>Title</h5>
-								<button class="btn btn-primary" type="submit">Book now</button>
+								<button class="btn btn-primary" type="submit" name="movieName" value="Sahil">Book now</button>
 							</div>
 						</form>
 					</div>
+					<div class="card-section">
+						<form th:action="@{/booking}" method="get">
+							<img src="images/backgroung poster.jpeg" alt="" />
+							<div class="card_body">
+								<h5>Title</h5>
+								<button class="btn btn-primary" type="submit" name="movieName" value="Sahil">Book now</button>
+							</div>
+						</form>
+					</div>
+					<div class="card-section">
+						<form th:action="@{/booking}" method="get">
+							<img src="images/backgroung poster.jpeg" alt="" />
+							<div class="card_body">
+								<h5>Title</h5>
+								<button class="btn btn-primary" type="submit" name="movieName" value="Sahil">Book now</button>
+							</div>
+						</form>
+					</div> -->
 					
 					
 				</div>
-								<div class="before_main_section">
-					<div class="card-section">
-						<form action="">
-							<img src="images/backgroung poster.jpeg" alt="" />
-							<div class="card_body">
-								<h5>Title</h5>
-								<button class="btn btn-primary" type="submit">Book now</button>
-							</div>
-						</form>
-					</div>
-					<div class="card-section">
-						<form action="">
-							<img src="images/backgroung poster.jpeg" alt="" />
-							<div class="card_body">
-								<h5>Title</h5>
-								<button class="btn btn-primary" type="submit">Book now</button>
-							</div>
-						</form>
-					</div>
-					<div class="card-section">
-						<form action="">
-							<img src="images/backgroung poster.jpeg" alt="" />
-							<div class="card_body">
-								<h5>Title</h5>
-								<button class="btn btn-primary" type="submit">Book now</button>
-							</div>
-						</form>
-					</div>
-					
-					
-				</div>
-
 
 
 			</div>

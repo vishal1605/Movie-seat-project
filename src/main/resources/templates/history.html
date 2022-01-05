@@ -41,7 +41,7 @@
 							<table class="table table-striped">
 								<thead>
 									<tr>
-										<th scope="col" class="text-primary">#</th>
+										<th scope="col" class="text-primary">Movie</th>
 										<th scope="col" class="text-primary">Seat</th>
 										<th scope="col" class="text-primary">Each Price</th>
 										<th scope="col" class="text-primary">Total price</th>
@@ -52,7 +52,7 @@
 								</thead>
 								<tbody>
 									<tr th:each="history: ${hList}">
-										<th th:text="${history.hId}"></th>
+										<th th:text="${history.movieName}"></th>
 										<th th:text="${history.seat}"></th>
 										<th th:text="${history.price}"></th>
 										<th th:text="${history.total}"></th>

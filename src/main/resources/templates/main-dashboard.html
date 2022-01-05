@@ -55,12 +55,21 @@
 				<h5 class="bg-warning text-light text-center"><span th:text="${message}"></span></h5>
 				</div>
 				<div class="before_main_section">
-					<div class="card-section">
+					<div class="card-section" th:each="movies : ${listMovie}">
+						<form th:action="@{/booking-seat}" method="get">
+							<img th:src="@{${'images/'+movies.image}}" height="280px" alt="" />
+							<div class="card_body mt-1">
+								<button class="btn btn-primary" type="submit" name="movieName" th:value="${movies.movieName}">Book
+									now</button>
+							</div>
+						</form>
+					</div>
+					<!-- <div class="card-section">
 						<form th:action="@{/booking-seat}" method="get">
 							<img src="images/backgroung poster.jpeg" alt="" />
 							<div class="card_body">
 								<h5>Title</h5>
-								<button class="btn btn-primary" type="submit" name="movieName" value="Vishal">Book
+								<button class="btn btn-primary" type="submit" name="movieName" value="Sahil">Book
 									now</button>
 							</div>
 						</form>
@@ -76,18 +85,39 @@
 						</form>
 					</div>
 					<div class="card-section">
-						<form action="">
+						<form th:action="@{/booking-seat}" method="get">
 							<img src="images/backgroung poster.jpeg" alt="" />
 							<div class="card_body">
 								<h5>Title</h5>
-								<button class="btn btn-primary" type="submit">Book now</button>
+								<button class="btn btn-primary" type="submit" name="movieName" value="Sahil">Book
+									now</button>
 							</div>
 						</form>
 					</div>
+					<div class="card-section">
+						<form th:action="@{/booking-seat}" method="get">
+							<img src="images/backgroung poster.jpeg" alt="" />
+							<div class="card_body">
+								<h5>Title</h5>
+								<button class="btn btn-primary" type="submit" name="movieName" value="Sahil">Book
+									now</button>
+							</div>
+						</form>
+					</div>
+					<div class="card-section">
+						<form th:action="@{/booking-seat}" method="get">
+							<img src="images/backgroung poster.jpeg" alt="" />
+							<div class="card_body">
+								<h5>Title</h5>
+								<button class="btn btn-primary" type="submit" name="movieName" value="Sahil">Book
+									now</button>
+							</div>
+						</form>
+					</div> -->
 
 
 				</div>
-								<div class="before_main_section">
+								<!-- <div class="before_main_section">
 					<div class="card-section">
 						<form th:action="@{/booking-seat}" method="get">
 							<img src="images/backgroung poster.jpeg" alt="" />
@@ -117,7 +147,7 @@
 					</div>
 					
 					
-				</div>
+				</div> -->
 
 			</div>
 		</div>
