@@ -197,9 +197,9 @@ public class BusController {
 		Customer object = (Customer) session.getAttribute("user");
 		if (object == null) {
 			return "redirect:/loginForm";
-		} else if (seat.getSeatNo() == null) {
+		} else if ((seat.getSeatNo() == null) && (movieName == null)) {
 			System.out.println("Seat is null");
-			return "redirect:/booking-seat";
+			return "redirect:/home";
 		} else if (date == null) {
 			date = currentDate;
 			time = "09:00 am";

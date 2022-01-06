@@ -56,7 +56,7 @@
 				</div>
 				<br />
 				<form th:action="@{/book-seat}" method="post">
-				<input type="text" name="movieName" th:value="${session.movieName}" />
+				<input type="text" hidden="hidden" name="movieName" th:value="${session.movieName}" />
 					<div class="container seat-section">
 					<h2>Please select your seat</h2>
 					<div class="symbol"><i class="fas fa-square one"></i>&nbsp;<span>Already Booked</span>&nbsp;&nbsp;&nbsp;&nbsp;
