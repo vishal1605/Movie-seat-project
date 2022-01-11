@@ -2,21 +2,103 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>Register</title>
+<title>Home</title>
 <link rel="stylesheet" href="#" th:href="@{/css/bootstrap.css}" />
 <link rel="stylesheet" href="#" th:href="@{/css/all.css}" />
 <link rel="stylesheet" href="#" th:href="@{/css/index.css}" />
 </head>
 <body>
-	<div class="container">
-		<div class="headiing">
-			<h1>Welcome to Our bus <span th:text="${currentUser.email}"></span></h1>
-		</div>
-		<br>
 
+	<div class="container base">
+		<div class="row base-row">
+			<div class="col-3 menu">
+			<div class="logo mb-5 text-center text-light bg-dark pt-1 pb-1">
+			<h4>Bhanu Gold Theatre</h4>
+			</div>
+				<ul class="list">
+					<li><a th:classappend="${menu == 'home'} ? 'text-dark' : ' '" th:href="@{/}"><i class="fas fa-home"></i>&nbsp;&nbsp;Home</a></li>
+					<li><a th:href="@{/register}"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Register</a></li>
+					<li><a th:href="@{/loginForm}"><i class="fas fa-users"></i>&nbsp;&nbsp;Login</a></li>
+					<li><a href=""><i class="fas fa-address-card"></i>&nbsp;&nbsp;About
+							us</a></li>
+					<li><a href=""><i class="fas fa-phone-square-alt"></i>&nbsp;&nbsp;Contact
+							us</a></li>
+				</ul>
+			</div>
+			<div class="col-9 before_login_home">
+				<div class="before_head">
+					<form action="">
+						<input type="text" placeholder="search for movies..," />
+						<button>
+							<i class="fa fa-search"></i>
+						</button>
+
+					</form>
+
+
+				</div>
+				<div class="before_main_section">
+					<div class="card-section" th:each="movies : ${movieList}">
+						<form th:action="@{/booking}" method="get">
+							<img th:src="@{${'images/'+movies.image}}" height="280px" alt="" />
+							<div class="card_body mt-1">
+								<button class="btn btn-primary" type="submit" name="movieName" th:value="${movies.movieName}">Book now</button>
+							</div>
+						</form>
+					</div>
+<!-- 					<div class="card-section">
+						<form th:action="@{/booking}" method="get">
+							<img src="images/backgroung poster.jpeg" alt="" />
+							<div class="card_body">
+								<h5>Title</h5>
+								<button class="btn btn-primary" type="submit" name="movieName" value="Sahil">Book now</button>
+							</div>
+						</form>
+					</div>
+					<div class="card-section">
+						<form th:action="@{/booking}" method="get">
+							<img src="images/backgroung poster.jpeg" alt="" />
+							<div class="card_body">
+								<h5>Title</h5>
+								<button class="btn btn-primary" type="submit" name="movieName" value="Sahil">Book now</button>
+							</div>
+						</form>
+					</div>
+					<div class="card-section">
+						<form th:action="@{/booking}" method="get">
+							<img src="images/backgroung poster.jpeg" alt="" />
+							<div class="card_body">
+								<h5>Title</h5>
+								<button class="btn btn-primary" type="submit" name="movieName" value="Sahil">Book now</button>
+							</div>
+						</form>
+					</div>
+					<div class="card-section">
+						<form th:action="@{/booking}" method="get">
+							<img src="images/backgroung poster.jpeg" alt="" />
+							<div class="card_body">
+								<h5>Title</h5>
+								<button class="btn btn-primary" type="submit" name="movieName" value="Sahil">Book now</button>
+							</div>
+						</form>
+					</div>
+					<div class="card-section">
+						<form th:action="@{/booking}" method="get">
+							<img src="images/backgroung poster.jpeg" alt="" />
+							<div class="card_body">
+								<h5>Title</h5>
+								<button class="btn btn-primary" type="submit" name="movieName" value="Sahil">Book now</button>
+							</div>
+						</form>
+					</div> -->
+					
+					
+				</div>
+
+
+			</div>
+		</div>
 
 	</div>
-
-
 </body>
 </html>

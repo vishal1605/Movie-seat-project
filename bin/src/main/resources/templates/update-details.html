@@ -17,9 +17,12 @@
 			</div>
 				<ul class="list">
 					<li><a th:href="@{/home}"><i class="fas fa-home"></i>&nbsp;&nbsp;Home</a></li>
-					<li><a th:href="@{/setting}"><i class="fas fa-cogs"></i>&nbsp;&nbsp;Setting</a></li>
-					<li th:if="${session.user.bid==1}"><a th:classappend="${menu == 'allusers'} ? 'text-dark' : ' '" th:href="@{/all-customers-records}"><i class="fas fa-users"></i>&nbsp;&nbsp;All Users</a></li>
-					<li><a th:href="@{/order-history}"><i class="fas fa-history"></i>&nbsp;&nbsp;Orders</a></li>
+					<li><a th:classappend="${menu == 'setting'} ? 'text-dark' : ' '" th:href="@{/setting}"><i class="fas fa-cogs"></i>&nbsp;&nbsp;Setting</a></li>
+					<li th:if="${session.user.bid==1}"><a
+						th:href="@{/all-customers-records}"><i class="fas fa-users"></i>&nbsp;&nbsp;All
+							Users</a></li>
+					<li><a th:href="@{/order-history}"><i
+							class="fas fa-history"></i>&nbsp;&nbsp;Orders</a></li>
 					<li><a href=""><i class="fas fa-address-card"></i>&nbsp;&nbsp;About
 							us</a></li>
 					<li><a href=""><i class="fas fa-phone-square-alt"></i>&nbsp;&nbsp;Contact
@@ -33,36 +36,43 @@
 						<p>
 							<span><i class="fas fa-user"></i></span>&nbsp;<span
 								class="name-user" th:if="${session.user.name}"
-								th:text="${session.user.name}"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><i class="fas fa-envelope"></i>
-								<sup><i class="fas fa-sms"></i></sup></span>
+								th:text="${session.user.name}"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><i
+								class="fas fa-envelope"></i> <sup><i class="fas fa-sms"></i></sup></span>
 						</p>
 					</div>
 
-							<table class="table table-striped">
-					<thead>
-						<tr>
-							<th scope="col">#</th>
-							<th scope="col">Name</th>
-							<th scope="col">Email</th>
-							<th scope="col">Password</th>
-							<th scope="col">All seats</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="customer: ${records}">
-							<th th:text="${customer.bid}"></th>
-							<th th:text="${customer.name}"></th>
-							<th th:text="${customer.email}"></th>
-							<th th:text="${customer.password}"></th>
-							<th><a th:href="@{all-seats/{id}(id=${customer.bid})}">view seats</a></th>
+					<div class="setting-details">
+						<form th:action="@{/setting/update-details}" method="post">
+							<table class="table table-borderless">
+								<tbody>
+									<tr>
+										<th>User Id</th>
+										<td><span th:text="${session.user.bid}"></span></td>
 
-						</tr>
+									</tr>
+									<tr>
+										<th>Username</th>
+										<td><input type="text" name="name"
+											th:value="${session.user.name}" /></td>
+
+									</tr>
+									<tr>
+										<th>Email</th>
+										<td><input type="text" name="email"
+											th:value="${session.user.email}" /></td>
+
+									</tr>
+
+								</tbody>
+							</table>
+							<div class="btn5 text-center">
+								<button class="btn btn-primary" type="submit">Update</button>
+							</div>
 
 
-					</tbody>
-				</table>
+						</form>
+					</div>
 
-						
 
 				</div>
 			</div>
