@@ -24,7 +24,6 @@ import com.bus.beans.OrderHistory;
 import com.bus.beans.Seat;
 import com.bus.service.CustomerDao;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class BusController {
@@ -48,27 +47,39 @@ public class BusController {
 //second page
 	@GetMapping("/booking")
 	public String bookingCheck(@RequestParam("movieName") String movieName, Model m, HttpSession session) {
-		session.setAttribute("movieName", movieName);
-		System.out.println(movieName);
-		LocalDate now = LocalDate.now();
-		LocalDate monthLimit = LocalDate.now();
-		String time = "09:00 am";
-		List<String> seatNo1 = new ArrayList<String>();
-		List<Seat> all = dao.getAllSeat(now, time);
+		List<MovieDetails> movie2 = dao.getAllMovie();
+		List<String> checkMovie = new ArrayList<>();
+		for (MovieDetails string : movie2) {
+			checkMovie.add(string.getMovieName());
+		}
+		if (checkMovie.contains(movieName)) {
+			session.setAttribute("movieName", movieName);
+			System.out.println(movieName);
+			LocalDate now = LocalDate.now();
+			LocalDate monthLimit = LocalDate.now();
+			String time = "09:00 am";
+			List<String> seatNo1 = new ArrayList<String>();
+			List<Seat> all = dao.getAllSeat(now, time);
 
-		for (Seat s : all) {
-			for (String s1 : s.getSeatNo()) {
-				seatNo1.add(s1);
+			for (Seat s : all) {
+				for (String s1 : s.getSeatNo()) {
+					seatNo1.add(s1);
+				}
+
 			}
+
+			m.addAttribute("date", now);
+			m.addAttribute("max", monthLimit.plusMonths(1));
+			m.addAttribute("min", monthLimit);
+			m.addAttribute("time", time);
+			m.addAttribute("seats", seatNo1);
+			return "home";
+
+		} else {
+			return "redirect:/";
 
 		}
 
-		m.addAttribute("date", now);
-		m.addAttribute("max", monthLimit.plusMonths(1));
-		m.addAttribute("min", monthLimit);
-		m.addAttribute("time", time);
-		m.addAttribute("seats", seatNo1);
-		return "home";
 	}
 
 //Registeration User
@@ -118,18 +129,15 @@ public class BusController {
 
 	@GetMapping("/home")
 	public String mainDashboard(HttpSession session, Model m) {
-		session.getAttribute("bookingdate");
 		session.removeAttribute("bookingdate");
-		session.getAttribute("bookingtime");
 		session.removeAttribute("bookingtime");
-		String movie = (String) session.getAttribute("movieName");
 		session.removeAttribute("movieName");
 		m.addAttribute("menu", "home");
 
 		String message = (String) session.getAttribute("msg");
 		m.addAttribute("message", message);
 		session.removeAttribute("msg");
-		System.out.println(message);
+//		System.out.println(message);
 		List<MovieDetails> movie2 = dao.getAllMovie();
 		m.addAttribute("listMovie", movie2);
 
@@ -139,47 +147,52 @@ public class BusController {
 //	Dashboard page
 	@GetMapping("/booking-seat")
 	public String getUser(@RequestParam("movieName") String movieName, HttpSession session, Model m) {
-		System.out.println(movieName);
-		session.setAttribute("movieName", movieName);
+		List<MovieDetails> movie2 = dao.getAllMovie();
+		List<String> checkMovie = new ArrayList<>();
+		for (MovieDetails string : movie2) {
+			checkMovie.add(string.getMovieName());
+		}
+		if (checkMovie.contains(movieName)) {
+			session.setAttribute("movieName", movieName);
 
-		LocalDate now = LocalDate.now();
-		LocalDate monthLimit = LocalDate.now();
-		String time = "09:00 am";
+			LocalDate now = LocalDate.now();
+			LocalDate monthLimit = LocalDate.now();
+			String time = "09:00 am";
 
-		Customer customer = (Customer) session.getAttribute("user");
-		List<String> seatNo1 = new ArrayList<String>();
-		List<Seat> seat = customer.getSeat();
+			Customer customer = (Customer) session.getAttribute("user");
+			List<String> seatNo1 = new ArrayList<String>();
+			List<Seat> seat = customer.getSeat();
 
-		List<Seat> all = dao.getAllSeat(now, time);
+			List<Seat> all = dao.getAllSeat(now, time);
 
-		for (Seat s : all) {
-			for (String s1 : s.getSeatNo()) {
-				seatNo1.add(s1);
+			for (Seat s : all) {
+				for (String s1 : s.getSeatNo()) {
+					seatNo1.add(s1);
+				}
+
 			}
 
+			m.addAttribute("date", now);
+			m.addAttribute("time", time);
+			m.addAttribute("max", monthLimit.plusMonths(1));
+			m.addAttribute("min", monthLimit);
+			m.addAttribute("seats", seatNo1);
+			m.addAttribute("seat", seat);
+			session.setAttribute("user", customer);
+			return "dashboard";
+		} else {
+			return "redirect:/home";
 		}
 
-		m.addAttribute("date", now);
-		m.addAttribute("time", time);
-		m.addAttribute("max", monthLimit.plusMonths(1));
-		m.addAttribute("min", monthLimit);
-		m.addAttribute("seats", seatNo1);
-		m.addAttribute("seat", seat);
-		session.setAttribute("user", customer);
-		return "dashboard";
 	}
 
 //	Logout process
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
-		Customer object = (Customer) session.getAttribute("user");
 		session.removeAttribute("user");
 
-		session.getAttribute("bookingdate");
 		session.removeAttribute("bookingdate");
-		session.getAttribute("bookingtime");
 		session.removeAttribute("bookingtime");
-		session.getAttribute("movieName");
 		session.removeAttribute("movieName");
 
 		return "redirect:/";
@@ -194,10 +207,12 @@ public class BusController {
 		Date todayDate = Date.from(currentDate.atStartOfDay(defaultZoneId).toInstant());
 		LocalDate date = (LocalDate) session.getAttribute("bookingdate");
 		String time = (String) session.getAttribute("bookingtime");
+		System.out.println(seat.getSeatNo().equals(null) + " wooo" + movieName.equals(null));
 		Customer object = (Customer) session.getAttribute("user");
+
 		if (object == null) {
 			return "redirect:/loginForm";
-		} else if ((seat.getSeatNo() == null) && (movieName == null)) {
+		} else if ((seat.getSeatNo().isEmpty()) && (movieName.equals(null))) {
 			System.out.println("Seat is null");
 			return "redirect:/home";
 		} else if (date == null) {
@@ -231,17 +246,6 @@ public class BusController {
 
 					}
 				}
-				List<String> in = new ArrayList<String>();
-				List<String> out = new ArrayList<String>();
-				for (String s1 : seat.getSeatNo()) {
-					if (seatNo1.contains(s1)) {
-						in.add(s1);
-					} else {
-						out.add(s1);
-					}
-				}
-				m.addAttribute("available", in);
-				m.addAttribute("booked", out);
 
 				m.addAttribute("seats", seatNo1);
 				session.setAttribute("user", object);
@@ -281,17 +285,6 @@ public class BusController {
 
 					}
 				}
-				List<String> in = new ArrayList<String>();
-				List<String> out = new ArrayList<String>();
-				for (String s1 : seat.getSeatNo()) {
-					if (seatNo1.contains(s1)) {
-						in.add(s1);
-					} else {
-						out.add(s1);
-					}
-				}
-				m.addAttribute("available", in);
-				m.addAttribute("booked", out);
 
 				m.addAttribute("seats", seatNo1);
 				session.setAttribute("user", object);
@@ -316,15 +309,6 @@ public class BusController {
 		List<OrderHistory> list = dao.getAllHistory(object.getBid());
 		m.addAttribute("hList", list);
 		m.addAttribute("todaydate", todayDate);
-//		ObjectMapper obj = new ObjectMapper();
-//		
-//		try {
-//			String str = obj.writeValueAsString(list);
-//			System.out.println(str);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 
 		LocalDate date = (LocalDate) session.getAttribute("bookingdate");
 		System.out.println(date);
@@ -417,8 +401,12 @@ public class BusController {
 	public String checkDate(@RequestParam("localdate") String date, @RequestParam("localtime") String time, Model m,
 			HttpSession session) {
 		Customer object = (Customer) session.getAttribute("user");
+		String movie = (String) session.getAttribute("movieName");
 		LocalDate monthLimit = LocalDate.now();
-		if (object == null) {
+		if (movie.equals(null)) {
+			return "home";
+
+		} else if (object == null) {
 			LocalDate now = LocalDate.parse(date);
 			List<String> seatNo1 = new ArrayList<String>();
 			List<Seat> all = dao.getAllSeat(now, time);

@@ -55,8 +55,18 @@
 
 				</div>
 				<br />
+				<div class="jumbotron p-0 js-seat text-center">
+				<h4>Seat selected</h4>
+				<div class="dynamic-seat" id="seat-dynamic" style="word-break: break-all">
+				
+				</div>
+				<h4>Total</h4>
+				<label id="show-price">0</label><span>rs</span>
+				
+				</div>
+				
 				<form th:action="@{/book-seat}" method="post">
-				<input type="text" hidden="hidden" name="movieName" th:value="${session.movieName}" />
+				<input type="text" autocomplete="off" name="movieName" th:value="${session.movieName}" />
 					<div class="container seat-section">
 					<h2>Please select your seat</h2>
 					<div class="symbol"><i class="fas fa-square one"></i>&nbsp;<span>Already Booked</span>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -65,196 +75,196 @@
 						<div class="row seat-row">
 						   <div class="col-5 first">
 				
-					<input type="checkbox" id="cb1" hidden="hidden"
+					<input type="checkbox" id="seat1" autocomplete="off" hidden="hidden"
 						th:classappend="${#lists.contains(seats, 'seat1')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat1')}" th:disabled="${#lists.contains(seats, 'seat1')}" value="seat1"
-						name="seatNo[]"><label class="btn btn-success" for="cb1">1</label>&nbsp;&nbsp;&nbsp;
+						name="seatNo[]"><label class="btn btn-success" for="seat1">1</label>&nbsp;&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb2" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat2')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat2" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat2')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat2')}" th:disabled="${#lists.contains(seats, 'seat2')}" value="seat2"
-						name="seatNo[]"><label class="btn btn-success" for="cb2">2</label>&nbsp;&nbsp;&nbsp;
+						name="seatNo[]"><label class="btn btn-success" for="seat2">2</label>&nbsp;&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb3" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat3')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat3" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat3')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat3')}" th:disabled="${#lists.contains(seats, 'seat3')}" value="seat3"
-						name="seatNo[]"><label class="btn btn-success" for="cb3">3</label>&nbsp;&nbsp;&nbsp;
+						name="seatNo[]"><label class="btn btn-success" for="seat3">3</label>&nbsp;&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb4" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat4')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat4" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat4')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat4')}" th:disabled="${#lists.contains(seats, 'seat4')}" value="seat4"
-						name="seatNo[]"><label class="btn btn-success" for="cb4">4</label>&nbsp;&nbsp;&nbsp;
+						name="seatNo[]"><label class="btn btn-success" for="seat4">4</label>&nbsp;&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb5" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat5')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat5" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat5')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat5')}" th:disabled="${#lists.contains(seats, 'seat5')}" value="seat5"
-						name="seatNo[]"><label class="btn btn-success" for="cb5">5</label><br>
+						name="seatNo[]"><label class="btn btn-success" for="seat5">5</label><br>
 
-					<input type="checkbox" id="cb6" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat6')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat6" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat6')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat6')}" th:disabled="${#lists.contains(seats, 'seat6')}" value="seat6"
-						name="seatNo[]"><label class="btn btn-success" for="cb6">6</label>&nbsp;&nbsp;&nbsp;
+						name="seatNo[]"><label class="btn btn-success" for="seat6">6</label>&nbsp;&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb7" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat7')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat7" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat7')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat7')}" th:disabled="${#lists.contains(seats, 'seat7')}" value="seat7"
-						name="seatNo[]"><label class="btn btn-success" for="cb7">7</label>&nbsp;&nbsp;&nbsp;
+						name="seatNo[]"><label class="btn btn-success" for="seat7">7</label>&nbsp;&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb8" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat8')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat8" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat8')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat8')}" th:disabled="${#lists.contains(seats, 'seat8')}" value="seat8"
-						name="seatNo[]"><label class="btn btn-success" for="cb8">8</label>&nbsp;&nbsp;&nbsp;
+						name="seatNo[]"><label class="btn btn-success" for="seat8">8</label>&nbsp;&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb9" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat9')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat9" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat9')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat9')}" th:disabled="${#lists.contains(seats, 'seat9')}" value="seat9"
-						name="seatNo[]"><label class="btn btn-success" for="cb9">9</label>&nbsp;&nbsp;&nbsp;
+						name="seatNo[]"><label class="btn btn-success" for="seat9">9</label>&nbsp;&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb10" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat10')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat10" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat10')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat10')}" th:disabled="${#lists.contains(seats, 'seat10')}"
 						value="seat10" name="seatNo[]"><label
-						class="btn btn-success" for="cb10">10</label><br>
+						class="btn btn-success" for="seat10">10</label><br>
 						
 						
 						 <input
-						type="checkbox" id="cb11" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat11')} ? 'box1' : 'mybtn'"
+						type="checkbox" id="seat11" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat11')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat11')}" th:disabled="${#lists.contains(seats, 'seat11')}" value="seat11"
-						name="seatNo[]"><label class="btn btn-success" for="cb11">11</label>&nbsp;&nbsp;
+						name="seatNo[]"><label class="btn btn-success" for="seat11">11</label>&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb12" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat12')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat12" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat12')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat12')}" th:disabled="${#lists.contains(seats, 'seat12')}"
 						value="seat12" name="seatNo[]"><label
-						class="btn btn-success" for="cb12">12</label>&nbsp;&nbsp;
+						class="btn btn-success" for="seat12">12</label>&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb13" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat13')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat13" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat13')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat13')}" th:disabled="${#lists.contains(seats, 'seat13')}"
 						value="seat13" name="seatNo[]"><label
-						class="btn btn-success" for="cb13">13</label>&nbsp;&nbsp;
+						class="btn btn-success" for="seat13">13</label>&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb14" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat14')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat14" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat14')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat14')}" th:disabled="${#lists.contains(seats, 'seat14')}"
 						value="seat14" name="seatNo[]"><label
-						class="btn btn-success" for="cb14">14</label>&nbsp;&nbsp;
+						class="btn btn-success" for="seat14">14</label>&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb15" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat15')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat15" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat15')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat15')}" th:disabled="${#lists.contains(seats, 'seat15')}"
 						value="seat15" name="seatNo[]"><label
-						class="btn btn-success" for="cb15">15</label><br>
+						class="btn btn-success" for="seat15">15</label><br>
 						
 						
 						 <input
-						type="checkbox" id="cb16" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat16')} ? 'box1' : 'mybtn'"
+						type="checkbox" id="seat16" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat16')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat16')}" th:disabled="${#lists.contains(seats, 'seat16')}" value="seat16"
-						name="seatNo[]"><label class="btn btn-success" for="cb16">16</label>&nbsp;&nbsp;
+						name="seatNo[]"><label class="btn btn-success" for="seat16">16</label>&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb17" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat17')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat17" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat17')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat17')}" th:disabled="${#lists.contains(seats, 'seat17')}"
 						value="seat17" name="seatNo[]"><label
-						class="btn btn-success" for="cb17">17</label>&nbsp;&nbsp;
+						class="btn btn-success" for="seat17">17</label>&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb18" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat18')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat18" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat18')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat18')}" th:disabled="${#lists.contains(seats, 'seat18')}"
 						value="seat18" name="seatNo[]"><label
-						class="btn btn-success" for="cb18">18</label>&nbsp;&nbsp;
+						class="btn btn-success" for="seat18">18</label>&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb19" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat19')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat19" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat19')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat19')}" th:disabled="${#lists.contains(seats, 'seat19')}"
 						value="seat19" name="seatNo[]"><label
-						class="btn btn-success" for="cb19">19</label>&nbsp;&nbsp;
+						class="btn btn-success" for="seat19">19</label>&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb20" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat20')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat20" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat20')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat20')}" th:disabled="${#lists.contains(seats, 'seat20')}"
 						value="seat20" name="seatNo[]"><label
-						class="btn btn-success" for="cb20">20</label>
+						class="btn btn-success" for="seat20">20</label>
 						   
 						   
 						   </div>
 						    <div class="col-5 second">
-						      <input type="checkbox" id="cb21" hidden="hidden"
+						      <input type="checkbox" id="seat21" autocomplete="off" hidden="hidden"
 						th:classappend="${#lists.contains(seats, 'seat21')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat21')}" th:disabled="${#lists.contains(seats, 'seat21')}" value="seat21"
-						name="seatNo[]"><label class="btn btn-success" for="cb21">21</label>&nbsp;&nbsp;&nbsp;
+						name="seatNo[]"><label class="btn btn-success" for="seat21">21</label>&nbsp;&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb22" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat22')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat22" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat22')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat22')}" th:disabled="${#lists.contains(seats, 'seat22')}" value="seat22"
-						name="seatNo[]"><label class="btn btn-success" for="cb22">22</label>&nbsp;&nbsp;&nbsp;
+						name="seatNo[]"><label class="btn btn-success" for="seat22">22</label>&nbsp;&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb23" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat23')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat23" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat23')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat23')}" th:disabled="${#lists.contains(seats, 'seat23')}" value="seat23"
-						name="seatNo[]"><label class="btn btn-success" for="cb23">23</label>&nbsp;&nbsp;&nbsp;
+						name="seatNo[]"><label class="btn btn-success" for="seat23">23</label>&nbsp;&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb24" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat24')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat24" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat24')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat24')}" th:disabled="${#lists.contains(seats, 'seat24')}" value="seat24"
-						name="seatNo[]"><label class="btn btn-success" for="cb24">24</label>&nbsp;&nbsp;&nbsp;
+						name="seatNo[]"><label class="btn btn-success" for="seat24">24</label>&nbsp;&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb25" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat25')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat25" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat25')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat25')}" th:disabled="${#lists.contains(seats, 'seat25')}" value="seat25"
-						name="seatNo[]"><label class="btn btn-success" for="cb25">25</label><br>
+						name="seatNo[]"><label class="btn btn-success" for="seat25">25</label><br>
 
-					<input type="checkbox" id="cb26" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat26')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat26" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat26')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat26')}" th:disabled="${#lists.contains(seats, 'seat26')}" value="seat26"
-						name="seatNo[]"><label class="btn btn-success" for="cb26">26</label>&nbsp;&nbsp;&nbsp;
+						name="seatNo[]"><label class="btn btn-success" for="seat26">26</label>&nbsp;&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb27" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat27')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat27" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat27')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat27')}" th:disabled="${#lists.contains(seats, 'seat27')}" value="seat27"
-						name="seatNo[]"><label class="btn btn-success" for="cb27">27</label>&nbsp;&nbsp;&nbsp;
+						name="seatNo[]"><label class="btn btn-success" for="seat27">27</label>&nbsp;&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb28" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat28')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat28" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat28')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat28')}" th:disabled="${#lists.contains(seats, 'seat28')}" value="seat28"
-						name="seatNo[]"><label class="btn btn-success" for="cb28">28</label>&nbsp;&nbsp;&nbsp;
+						name="seatNo[]"><label class="btn btn-success" for="seat28">28</label>&nbsp;&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb29" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat29')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat29" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat29')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat29')}" th:disabled="${#lists.contains(seats, 'seat29')}" value="seat29"
-						name="seatNo[]"><label class="btn btn-success" for="cb29">29</label>&nbsp;&nbsp;&nbsp;
+						name="seatNo[]"><label class="btn btn-success" for="seat29">29</label>&nbsp;&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb30" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat30')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat30" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat30')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat30')}" th:disabled="${#lists.contains(seats, 'seat30')}"
 						value="seat30" name="seatNo[]"><label
-						class="btn btn-success" for="cb30">30</label><br>
+						class="btn btn-success" for="seat30">30</label><br>
 						
 						
 						 <input
-						type="checkbox" id="cb31" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat31')} ? 'box1' : 'mybtn'"
+						type="checkbox" id="seat31" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat31')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat31')}" th:disabled="${#lists.contains(seats, 'seat31')}" value="seat31"
-						name="seatNo[]"><label class="btn btn-success" for="cb31">31</label>&nbsp;&nbsp;
+						name="seatNo[]"><label class="btn btn-success" for="seat31">31</label>&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb32" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat32')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat32" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat32')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat32')}" th:disabled="${#lists.contains(seats, 'seat32')}"
 						value="seat32" name="seatNo[]"><label
-						class="btn btn-success" for="cb32">32</label>&nbsp;&nbsp;
+						class="btn btn-success" for="seat32">32</label>&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb33" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat33')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat33" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat33')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat33')}" th:disabled="${#lists.contains(seats, 'seat33')}"
 						value="seat33" name="seatNo[]"><label
-						class="btn btn-success" for="cb33">33</label>&nbsp;&nbsp;
+						class="btn btn-success" for="seat33">33</label>&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb34" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat34')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat34" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat34')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat34')}" th:disabled="${#lists.contains(seats, 'seat34')}"
 						value="seat34" name="seatNo[]"><label
-						class="btn btn-success" for="cb34">34</label>&nbsp;&nbsp;
+						class="btn btn-success" for="seat34">34</label>&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb35" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat35')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat35" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat35')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat35')}" th:disabled="${#lists.contains(seats, 'seat35')}"
 						value="seat35" name="seatNo[]"><label
-						class="btn btn-success" for="cb35">35</label><br>
+						class="btn btn-success" for="seat35">35</label><br>
 						
 						
 						 <input
-						type="checkbox" id="cb36" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat36')} ? 'box1' : 'mybtn'"
+						type="checkbox" id="seat36" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat36')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat36')}" th:disabled="${#lists.contains(seats, 'seat36')}" value="seat36"
-						name="seatNo[]"><label class="btn btn-success" for="cb36">36</label>&nbsp;&nbsp;
+						name="seatNo[]"><label class="btn btn-success" for="seat36">36</label>&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb37" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat37')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat37" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat37')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat37')}" th:disabled="${#lists.contains(seats, 'seat37')}"
 						value="seat37" name="seatNo[]"><label
-						class="btn btn-success" for="cb37">37</label>&nbsp;&nbsp;
+						class="btn btn-success" for="seat37">37</label>&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb38" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat38')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat38" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat38')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat38')}" th:disabled="${#lists.contains(seats, 'seat38')}"
 						value="seat38" name="seatNo[]"><label
-						class="btn btn-success" for="cb38">38</label>&nbsp;&nbsp;
+						class="btn btn-success" for="seat38">38</label>&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb39" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat39')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat39" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat39')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat39')}" th:disabled="${#lists.contains(seats, 'seat39')}"
 						value="seat39" name="seatNo[]"><label
-						class="btn btn-success" for="cb39">39</label>&nbsp;&nbsp;
+						class="btn btn-success" for="seat39">39</label>&nbsp;&nbsp;
 
-					<input type="checkbox" id="cb40" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat40')} ? 'box1' : 'mybtn'"
+					<input type="checkbox" id="seat40" autocomplete="off" hidden="hidden" th:classappend="${#lists.contains(seats, 'seat40')} ? 'box1' : 'mybtn'"
 						th:checked="${#lists.contains(seats, 'seat40')}" th:disabled="${#lists.contains(seats, 'seat40')}"
 						value="seat40" name="seatNo[]"><label
-						class="btn btn-success" for="cb40">40</label>
+						class="btn btn-success" for="seat40">40</label>
 						      
 						    
 						    </div>
@@ -275,13 +285,44 @@
 	</div>
 
 	<script>
+	
 		document.getElementById("dateselect").onchange = function() {
 			document.getElementById("form").submit();
 		}
+
+		document.getElementById("timeselect").onchange = function() {
+			document.getElementById("form").submit();
+		}
 		
-		 document.getElementById("timeselect").onchange = function() {
-	            document.getElementById("form").submit();
-	        }
+		
+		const mySeats = document.getElementById('seat-dynamic');
+		const myPrice = document.getElementById('show-price');
+		var total = 0;
+		var seat = [];
+		const checkBox = document.querySelectorAll('input[type="checkbox"]');
+		for (var i = 0; i < checkBox.length; i++) {
+			checkBox[i].addEventListener('click', displayValue);
+
+		}
+		function displayValue(e) {
+			var myValue = 525;
+			if (e.target.checked == true) {
+				seat.push(e.target.id);
+
+				total += myValue;
+
+			} else {
+				var index = seat.indexOf(e.target.id);
+				seat.splice(index, 1);
+				total -= myValue;
+
+			}
+			// seat.join("");
+			console.log(seat);
+			console.log(total);
+			mySeats.innerHTML = seat;
+			myPrice.innerHTML = total;
+		}
 	</script>
 </body>
 </html>
